@@ -4,10 +4,10 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
 from .forms import CustomerForm, VehicleForm
-from . import managers
+from . import models
 
 # Create your views here.
-# Receives web requests; returns web response
+
 def index(request):
     return render(request, 'bhs_app/index.html')
 
@@ -37,16 +37,11 @@ def search(request):
     if request.method == 'GET':
         q = request.GET.get('q')
         if q == None:
-            data = None #managers.AllCustomers.all_customers
+            data = None
         else:
-            data = managers.AllCustomers.all_customers.filter(phone_number__icontains=q)
+            data = models.Customer.objects.all().filter(phone_number__icontains=q)
             print(data)
     return render(request, 'bhs_app/search.html', {'data': data})
-
-
-
-
-
 
 @login_required(login_url='login')
 def view_customers(request):
