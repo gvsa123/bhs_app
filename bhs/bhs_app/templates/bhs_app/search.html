@@ -1,11 +1,11 @@
 {% extends 'bhs_app/base.html' %}
 
 {% block content %}
-<h2>Search Database</h2>
+<h2>Search Database by Phone Number</h2>
 <form action="/search/" method="GET">
     {% csrf_token %}
     <!-- <p><input name="q" type="text" placeholder="Search...""></p> -->
-    <p><input name="q" type="search" placeholder="Search...""><button type="submit">Search</button></p>
+    <p><input name="q" type="search" placeholder="ex: 14032661601""><button type="submit">Search</button></p>
     
     <table>
         <tr>

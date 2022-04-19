@@ -39,7 +39,7 @@ def search(request):
         if q == None:
             data = None #managers.AllCustomers.all_customers
         else:
-            data = managers.AllCustomers.all_customers.filter(first_name__icontains=q)
+            data = managers.AllCustomers.all_customers.filter(phone_number__icontains=q)
             print(data)
     return render(request, 'bhs_app/search.html', {'data': data})
 
