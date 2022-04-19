@@ -43,13 +43,16 @@ def search(request):
             print(data)
     return render(request, 'bhs_app/search.html', {'data': data})
 
-@login_required(login_url='login')
-def view_customers(request):
-    '''Display data on webpage'''
-    all_customer_data = managers.AllCustomers.all_customers
+# @login_required(login_url='login')
+# def view_customers(request):
+#     '''Display data on webpage
+#     TODO:
+#     - not needed anymore?
+#     '''
+#     all_customer_data = managers.AllCustomers.all_customers
 
-    return render(request, 'bhs_app/view_customers.html',
-                 {'all_customer_data': list(all_customer_data)})
+#     return render(request, 'bhs_app/view_customers.html',
+#                  {'all_customer_data': list(all_customer_data)})
 
 @login_required(login_url='login')
 def thanks(request):
