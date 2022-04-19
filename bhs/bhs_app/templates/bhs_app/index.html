@@ -1,0 +1,13 @@
+{% extends 'bhs_app/base.html' %}
+
+{% block content %}
+{% if request.user.is_authenticated %}
+    <p>Hello {{ request.user.username }}.</p>
+    <a href="{% url 'create_new_customer' %}">Create New Customer </a>
+    <a href="{% url 'search' %}">Search</a>
+    <a href="{% url 'view_customers' %}">View Existing Customers </a>
+    <p><a href="{% url 'logout' %}">Log Out</a></p>
+{% else %}
+    <p>User not authenticated. Please <a href="{% url 'login' %}">login.</a></p>
+{% endif %}
+{% endblock %}

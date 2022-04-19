@@ -1,0 +1,28 @@
+{% extends 'bhs_app/base.html' %}
+
+{% block content %}
+<p> Existing Customers </p>
+<!-- Create for loop - iterate over data -->
+<table>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+        <th>Address</th>
+    </tr>
+    {% for cust in all_customer_data %}
+    <tr>
+        <td>{{ cust.customer_id }}</td>
+        <td>{{ cust.first_name }}</td>
+        <td>{{ cust.last_name }}</td>
+        <td>{{ cust.phone_number }}</td>
+        <td>{{ cust.email }}</td>
+        <td>{{ cust.address }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>Delete this page!!!</h2>
+{% endblock %}
