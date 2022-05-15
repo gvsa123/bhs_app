@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 from .forms import CustomerForm, VehicleForm
 from . import models
-
+from . import managers
 # Create your views here.
 
 def index(request):
@@ -43,16 +43,14 @@ def search(request):
             print(data)
     return render(request, 'bhs_app/search.html', {'data': data})
 
-# @login_required(login_url='login')
-# def view_customers(request):
-#     '''Display data on webpage
-#     TODO:
-#     - not needed anymore?
-#     '''
-#     all_customer_data = managers.AllCustomers.all_customers
+@login_required(login_url='login')
+def view_customers(request):
+    '''Display data on webpage'''
+    all_customer_data = managers.AllCustomers.all_customers
+    all_customer_data_list = [i for i in all_customer_data.values_list()]
 
-#     return render(request, 'bhs_app/view_customers.html',
-#                  {'all_customer_data': list(all_customer_data)})
+    return render(request, 'bhs_app/view_customers.html',
+                 {'all_customer_data': list(all_customer_data)})
 
 @login_required(login_url='login')
 def thanks(request):

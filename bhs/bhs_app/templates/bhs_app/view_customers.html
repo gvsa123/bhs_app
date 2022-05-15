@@ -1,7 +1,7 @@
 {% extends 'bhs_app/base.html' %}
 
 {% block content %}
-<p> Existing Customers </p>
+<h2><p> Existing Customers </p></h2>
 <!-- Create for loop - iterate over data -->
 <table>
     <tr>
@@ -14,12 +14,12 @@
     </tr>
     {% for cust in all_customer_data %}
     <tr>
-        <td>{{ cust.customer_id }}</td>
-        <td>{{ cust.first_name }}</td>
-        <td>{{ cust.last_name }}</td>
-        <td>{{ cust.phone_number }}</td>
-        <td>{{ cust.email }}</td>
-        <td>{{ cust.address }}</td>
+        <td><a href="https://www.w3schools.com">{{ cust.customer_id }}</a></td>
+        <td><a href="https://www.w3schools.com">{{ cust.first_name }}</a></td>
+        <td><a href="https://www.w3schools.com">{{ cust.last_name }}</a></td>
+        <td><a href="https://www.w3schools.com">{{ cust.phone_number }}</a></td>
+        <td><a href="https://www.w3schools.com">{{ cust.email }}</a></td>
+        <td><a href="https://www.w3schools.com">{{ cust.address }}</a></td>
     </tr>
     {% endfor %}
 </table>
