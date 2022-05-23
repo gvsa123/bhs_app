@@ -1,0 +1,27 @@
+{% extends 'bhs_app/base.html' %}
+
+{% block content %}
+
+<h2><p> Customer Profile Page </p></h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+        <th>Address</th>
+    </tr>
+    <tr>
+        <td> {{ customer_data.customer_id }} </td>
+        <td> {{ customer_data.first_name }} </td>
+        <td> {{ customer_data.last_name }} </td>
+        <td> {{ customer_data.phone_number }} </td>
+        <td> {{ customer_data.email }} </td>
+        <td> {{ customer_data.address }} </td>
+    </tr>
+</table>
+
+<p> customer_id: {{ customer_id }} </p>
+
+{% endblock%}

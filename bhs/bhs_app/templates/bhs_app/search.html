@@ -4,7 +4,6 @@
 <h2>Search Database by Phone Number</h2>
 <form action="/search/" method="GET">
     {% csrf_token %}
-    <!-- <p><input name="q" type="text" placeholder="Search...""></p> -->
     <p><input name="q" type="search" placeholder="ex: 14032661601""><button type="submit">Search</button></p>
     
     <table>
@@ -16,14 +15,14 @@
             <th>Email</th>
             <th>Address</th>
         </tr>
-        {% for i in data %}
+        {% for customer in search_data %}
         <tr>
-            <td>{{ i.customer_id }}</td>
-            <td>{{ i.first_name }}</td>
-            <td>{{ i.last_name }}</td>
-            <td>{{ i.phone_number }}</td>
-            <td>{{ i.email }}</td>
-            <td>{{ i.address }}</td>
+            <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer_id }}/">{{ customer.customer_id }}</a></td>
+            <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer_id }}/">{{ customer.first_name }}</a></td>
+            <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer_id }}/">{{ customer.last_name }}</a></td>
+            <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer_id }}/">{{ customer.phone_number }}</a></td>
+            <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer_id }}/">{{ customer.email }}</a></td>
+            <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer_id }}/">{{ customer.address }}</a></td>
         </tr>
         {% endfor %}
     </table>
