@@ -49,11 +49,14 @@ def view_customers(request):
     '''Display data on webpage
     TODO:
     - limit number of row items
-    - do you want to have links available for all items?
     '''
     all_customer_data = managers.AllCustomers.all_customers
     all_customer_data_list = [i for i in all_customer_data.values_list()]
-    print(type(all_customer_data_list[0]))
+    print(f"all_customer_data --> {all_customer_data}")
+    print(f"all_customer_data --> {type(all_customer_data)}")
+    print(f"all_customer_data --> {dir(all_customer_data)}")
+    print(f"all_customer_data_list --> {type(all_customer_data_list[0])}")
+    print(f"all_customer_data_list --> {all_customer_data_list}")
 
     return render(request, 'bhs_app/view_customers.html',
                  {'all_customer_data': list(all_customer_data)})
