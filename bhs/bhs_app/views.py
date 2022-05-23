@@ -42,7 +42,7 @@ def search(request):
         else:
             data = models.Customer.objects.all().filter(phone_number__icontains=q)
 
-    return render(request, 'bhs_app/search.html', {'search_data': data})
+    return render(request, 'bhs_app/search.html', {'data': data})
 
 @login_required(login_url='login')
 def view_customers(request):
@@ -59,15 +59,14 @@ def view_customers(request):
     print(f"all_customer_data_list --> {all_customer_data_list}")
 
     return render(request, 'bhs_app/view_customers.html',
-                 {'all_customer_data': list(all_customer_data)})
+                 {'data': list(all_customer_data)})
 
 @login_required(login_url='login')
 def view_customer_profile(request, customer_id):
     '''Display customer profile page'''
-    data = get_object_or_404(models.Customer, pk=customer_id)
-    print(data)
+    customer = get_object_or_404(models.Customer, pk=customer_id)
 
-    return render(request, 'bhs_app/view_customer_profile.html', {'customer': data.pk})
+    return render(request, 'bhs_app/view_customer_profile.html', {'data': customer.pk})
 
 @login_required(login_url='login')
 def thanks(request):

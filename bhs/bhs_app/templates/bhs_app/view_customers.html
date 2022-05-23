@@ -12,7 +12,7 @@
         <th>Email</th>
         <th>Address</th>
     </tr>
-    {% for customer in all_customer_data %}
+    {% for customer in data %}
     <tr>
         <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer_id }}/">{{ customer.customer_id }}</a></td>
         <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer_id }}/">{{ customer.first_name }}</a></td>
