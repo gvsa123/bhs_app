@@ -12,16 +12,16 @@
         <th>Email</th>
         <th>Address</th>
     </tr>
+    {% for customer in data%}
     <tr>
-        <td> {{ data.customer_id }} </td>
-        <td> {{ data.first_name }} </td>
-        <td> {{ data.last_name }} </td>
-        <td> {{ data.phone_number }} </td>
-        <td> {{ data.email }} </td>
-        <td> {{ data.address }} </td>
+        <td> {{ customer.customer_id }} </td>
+        <td> {{ customer.first_name }} </td>
+        <td> {{ customer.last_name }} </td>
+        <td> {{ customer.phone_number }} </td>
+        <td> {{ customer.email }} </td>
+        <td> {{ customer.address }} </td>
     </tr>
+    {% endfor %}
 </table>
-
-<p> customer_id: {{ customer_id }} </p>
 
 {% endblock%}

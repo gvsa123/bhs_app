@@ -1,12 +1,11 @@
 import re
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
 from .forms import CustomerForm, VehicleForm
 from . import models
 from . import managers
-# Create your views here.
 
 def index(request):
     return render(request, 'bhs_app/index.html')
@@ -41,7 +40,6 @@ def search(request):
             data = None
         else:
             data = models.Customer.objects.all().filter(phone_number__icontains=q)
-
     return render(request, 'bhs_app/search.html', {'data': data})
 
 @login_required(login_url='login')
@@ -51,22 +49,15 @@ def view_customers(request):
     - limit number of row items
     '''
     all_customer_data = managers.AllCustomers.all_customers
-    all_customer_data_list = [i for i in all_customer_data.values_list()]
-    print(f"all_customer_data --> {all_customer_data}")
-    print(f"all_customer_data --> {type(all_customer_data)}")
-    print(f"all_customer_data --> {dir(all_customer_data)}")
-    print(f"all_customer_data_list --> {type(all_customer_data_list[0])}")
-    print(f"all_customer_data_list --> {all_customer_data_list}")
-
     return render(request, 'bhs_app/view_customers.html',
                  {'data': list(all_customer_data)})
 
 @login_required(login_url='login')
 def view_customer_profile(request, customer_id):
-    '''Display customer profile page'''
-    customer = get_object_or_404(models.Customer, pk=customer_id)
-
-    return render(request, 'bhs_app/view_customer_profile.html', {'data': customer.pk})
+    '''Display customer profile page
+    '''    
+    customer = models.Customer.objects.all().filter(pk=customer_id)
+    return render(request, 'bhs_app/view_customer_profile.html', {'data': customer})
 
 @login_required(login_url='login')
 def thanks(request):
