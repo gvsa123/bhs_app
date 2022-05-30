@@ -11,7 +11,7 @@ class CustomerForm(ModelForm):
 class VehicleForm(ModelForm):
     class Meta:
         model = models.Vehicle
-        fields = ['vin', 'customer_id']
+        fields = ['vin', 'year', 'car_make', 'car_model', 'mileage']
 
 class RepairOrderForm(ModelForm):
     class Meta:

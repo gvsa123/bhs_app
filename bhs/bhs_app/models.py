@@ -27,16 +27,20 @@ class Customer(models.Model):
 class Vehicle(models.Model):
     '''Relevant vehicle information
     TODO:
-    - check https://www.back4app.com/database/how-it-works for api
+    -   check https://www.back4app.com/database/how-it-works;
+        create model dictionary OR use api?
+
     '''
+    from datetime import date
 
     vin = models.CharField(primary_key=True, max_length=17)
     customer_id = models.ForeignKey('Customer', on_delete=models.PROTECT)
     
-    ytd = 2023 # Current year
+    ytd = date.today().year + 1
     YEARS = [(yr, yr) for yr in range(1980, ytd, 1)]
-    year = models.CharField(max_length=4, choices=YEARS, default=ytd)
+    year = models.CharField(choices=YEARS, max_length=4, default=ytd)
 
+    # List of car manufacturers
     MFR = [
         ("Abarth", "Abarth"),
         ("Alfa Romeo", "Alfa Romeo"),
@@ -103,7 +107,8 @@ class Vehicle(models.Model):
         ("Volkswagen", "Volkswagen"),
         ("Volvo", "Volvo")
     ]
-    car_make = models.CharField(choices=MFR, max_length=20, null=True)
+
+    car_make = models.CharField(choices=MFR, max_length=50, null=True)
     car_model = models.CharField(max_length=20, null=True)
     mileage = models.PositiveIntegerField(null=True)
 
