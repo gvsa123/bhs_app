@@ -80,6 +80,9 @@ DATABASES = {
         'NAME': 'bhs_auto',
         'USER': 'girard',
         'PASSWORD': '6D23jchft01!',
+        'TEST': {
+            'NAME': 'test_bhs_auto'
+        }
     }
 }
 
