@@ -4,6 +4,7 @@
 # from pyexpat import model
 # from tkinter import CASCADE
 from django.db import models
+from datetime import date
 
 '''
 TODO:
@@ -13,7 +14,7 @@ TODO:
 class Customer(models.Model):
     '''Basic customer information.'''
 
-    customer_id = models.AutoField(primary_key=True)
+    customer = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     phone_number = models.BigIntegerField(unique=True)
@@ -31,14 +32,8 @@ class Vehicle(models.Model):
         create model dictionary OR use api?
 
     '''
-    from datetime import date
-
-    vin = models.CharField(primary_key=True, max_length=17)
-    customer_id = models.ForeignKey('Customer', on_delete=models.PROTECT)
-    
-    ytd = date.today().year + 1
-    YEARS = [(yr, yr) for yr in range(1980, ytd, 1)]
-    year = models.CharField(choices=YEARS, max_length=4, default=ytd)
+    YTD = date.today().year + 1
+    YEARS = [(yr, yr) for yr in range(1980, YTD, 1)]
 
     # List of car manufacturers
     MFR = [
@@ -107,9 +102,12 @@ class Vehicle(models.Model):
         ("Volkswagen", "Volkswagen"),
         ("Volvo", "Volvo")
     ]
-
-    car_make = models.CharField(choices=MFR, max_length=50, null=True)
-    car_model = models.CharField(max_length=20, null=True)
+    
+    vin = models.CharField(unique=True, max_length=17)
+    customer = models.ForeignKey(Customer, on_delete=models.RESTRICT)
+    year = models.CharField(choices=YEARS, max_length=4, default=YTD)
+    make = models.CharField(choices=MFR, max_length=50, null=True)
+    model = models.CharField(max_length=20, null=True)
     mileage = models.PositiveIntegerField(null=True)
 
     def __str__(self) -> str:
@@ -118,10 +116,10 @@ class Vehicle(models.Model):
 class RepairOrder(models.Model):
     '''Unique repair order associated'''
 
-    ro_num = models.AutoField(primary_key=True)
-    customer_id = models.ForeignKey(Customer, on_delete=models.PROTECT) #OneToOneField(Customer, blank=True, on_delete=models.PROTECT)
-    vin = models.ForeignKey(Vehicle, on_delete=models.PROTECT)
-    date = models.DateField(blank=False, null=False)
+    ro = models.AutoField(primary_key=True)
+    customer = models.ForeignKey(Customer, on_delete=models.RESTRICT) #models.OneToOneField(Customer, blank=True, on_delete=models.PROTECT)
+    vin = models.ForeignKey(Vehicle, on_delete=models.RESTRICT) #models.OneToOneField(Customer, blank=True, on_delete=models.PROTECT)
+    date = models.DateField(default=date.today(), blank=False, null=False)
     comment = models.TextField()
     completed = models.BooleanField(default=False)
 
@@ -134,6 +132,6 @@ class Comments(models.Model):
     - add ro_num with 1-to-1 from RepairOrder class
     '''
     
-    ro_num = models.ForeignKey(RepairOrder, on_delete=models.PROTECT, null=True)
+    ro = models.ForeignKey(RepairOrder, on_delete=models.PROTECT, null=True)
     date = models.DateTimeField(blank=False)
     comment = models.TextField()
