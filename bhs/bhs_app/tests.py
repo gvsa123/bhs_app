@@ -11,7 +11,7 @@ Vehicle(vin='JHMGE8G67AC003016',year=2010,make='Honda',model='Fit',mileage=16345
 
 from random import randint
 from django.test import TestCase
-from bhs_app.models import Customer, RepairOrder, Vehicle
+from bhs_app.models import Comments, Customer, RepairOrder, Vehicle
 
 class ModelRelationshipTest(TestCase):
     '''Tests relationships between models.'''
@@ -130,6 +130,7 @@ class ModelRelationshipTest(TestCase):
     
     def test_create_repair_order_with_vehicle(self) -> None:
         '''Test repair order relationship with customer with vehicle'''
+        # Create Vehicle objects
         c1 = Customer.objects.get(phone_number=14037144007)
         c2 = Customer.objects.get(phone_number=14036672458)
         c3 = Customer.objects.get(phone_number=18542766304)
@@ -137,7 +138,6 @@ class ModelRelationshipTest(TestCase):
         c2.save()
         c3.save()
 
-        # Create Vehicle objects
         Vehicle.objects.create(
             customer = c1,
             vin = 'JH4DA1745GS002661',
@@ -163,21 +163,86 @@ class ModelRelationshipTest(TestCase):
             mileage = randint(25000, 250000)
         )
         
-        v1 = Vehicle.objects.get(vin='JH4DA1745GS002661').save()
-        v2 = Vehicle.objects.get(vin='WBAGH83401DP17574').save()
-        v3 = Vehicle.objects.get(vin='1FAHP3FNXAW231964').save()
-        # v1.save()
-        # v2.save()
-        # v3.save()
+        v1 = Vehicle.objects.get(vin='JH4DA1745GS002661')
+        v2 = Vehicle.objects.get(vin='WBAGH83401DP17574')
+        v3 = Vehicle.objects.get(vin='1FAHP3FNXAW231964')
+        v1.save()
+        v2.save()
+        v3.save()
 
-        ro1 = RepairOrder.objects.create(customer=c1).save()
-        ro2 = RepairOrder.objects.create(customer=c2).save()
-        ro3 = RepairOrder.objects.create(customer=c3).save()
+        ro1 = RepairOrder.objects.create(customer=c1)
+        ro2 = RepairOrder.objects.create(customer=c2)
+        ro3 = RepairOrder.objects.create(customer=c3)
+        ro1.save()
+        ro2.save()
+        ro3.save()
 
-        # ro1.save()
-        # ro2.save()
-        # ro3.save()
+        self.assertIs(c1.customer, v1.customer_id)
+        self.assertIs(c2.customer, v2.customer_id)
+        self.assertIs(c3.customer, v3.customer_id)
+        self.assertIs(c1.customer, ro1.customer_id)
+        self.assertIs(c2.customer, ro2.customer_id)
+        self.assertIs(c3.customer, ro3.customer_id)
+        self.assertIs(v1.customer_id, ro1.customer_id)
+        self.assertIs(v2.customer_id, ro2.customer_id)
+        self.assertIs(v3.customer_id, ro3.customer_id)
+
+        self.assertEqual(c1.pk, ro1.customer_id)
+        self.assertEqual(c2.pk, ro2.customer_id)
+        self.assertEqual(c3.pk, ro3.customer_id)
+        self.assertEqual(ro1.customer_id, v1.customer_id)
+        self.assertEqual(ro2.customer_id, v2.customer_id)
+        self.assertEqual(ro3.customer_id, v3.customer_id)
 
     def test_create_comment_for_repair_order(self) -> None:
         '''Test creating comment for repair order'''
-        pass
+        # Create objects
+        c1 = Customer.objects.get(phone_number=14037144007)
+        c2 = Customer.objects.get(phone_number=14036672458)
+        c3 = Customer.objects.get(phone_number=18542766304)
+        c1.save()
+        c2.save()
+        c3.save()
+
+        Vehicle.objects.create(
+            customer = c1,
+            vin = 'JH4DA1745GS002661',
+            year = 1986,
+            make = 'Acura',
+            model = 'Integra',
+            mileage = randint(25000, 250000)
+        )
+        Vehicle.objects.create(
+            customer = c2,
+            vin = 'WBAGH83401DP17574',
+            year = 2001,
+            make = 'BMW',
+            model = '7 Series',
+            mileage = randint(25000, 250000)
+        )
+        Vehicle.objects.create(
+            customer = c3,
+            vin = '1FAHP3FNXAW231964',
+            year = 2010,
+            make = 'Ford',
+            model = 'Focus',
+            mileage = randint(25000, 250000)
+        )
+        
+        v1 = Vehicle.objects.get(vin='JH4DA1745GS002661')
+        v2 = Vehicle.objects.get(vin='WBAGH83401DP17574')
+        v3 = Vehicle.objects.get(vin='1FAHP3FNXAW231964')
+        v1.save()
+        v2.save()
+        v3.save()
+
+        ro1 =RepairOrder.objects.create(customer=c1)
+        ro2 =RepairOrder.objects.create(customer=c2)
+        ro3 =RepairOrder.objects.create(customer=c3)
+
+        co1 = Comments.objects.create(comment="Hello world.", ro=ro1)
+        co2 = Comments.objects.create(comment="Hello world.", ro=ro2)
+        co3 = Comments.objects.create(comment="Hello world.", ro=ro3)
+        co1.save()
+        co2.save()
+        co3.save()
