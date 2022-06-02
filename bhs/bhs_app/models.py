@@ -132,5 +132,5 @@ class Comments(models.Model):
     '''
     
     ro = models.ForeignKey('RepairOrder', on_delete=models.PROTECT, null=True)
-    date = models.DateTimeField(blank=False)
+    date = models.DateField(default=date.today, blank=False, null=False)
     comment = models.TextField()
