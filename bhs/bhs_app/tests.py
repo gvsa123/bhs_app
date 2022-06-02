@@ -1,18 +1,21 @@
-from random import randint
-from django.test import TestCase
-from bhs_app.models import Customer, Vehicle
 '''
-# Sample objects
+Series of tests checking relationship across models.
+See test_<model>.py for tests related to model functionality.
+
+# Sample objects for convenience
 Customer.objects.create(first_name='Noah', last_name='Gibbs', phone_number='14039236543',email='noahark@gmail.com',address='31 hamstring drive oklahoma')
 Customer(first_name='Liam', last_name='Watts', phone_number='14039876543',email='lwatt@gmail.ce',address='23 holy st los angeles')
 Vehicle(vin='WAUWGAFB0C0018472',year=2012,make='Audi',model='A4',mileage=234321)
 Vehicle(vin='JHMGE8G67AC003016',year=2010,make='Honda',model='Fit',mileage=163455)
 '''
 
-class CustomerTestCaseWithoutVehicle(TestCase):
-    '''Create customers without vehicles'''
+from random import randint
+from django.test import TestCase
+from bhs_app.models import Customer, RepairOrder, Vehicle
+
+class ModelRelationshipTest(TestCase):
+    '''Tests relationships between models.'''
     def setUp(self) -> None:
-        # Create Customer objects
         Customer.objects.create(
             first_name = 'Girard',
             last_name = 'Aquino',
@@ -36,7 +39,7 @@ class CustomerTestCaseWithoutVehicle(TestCase):
         )
     
     def test_create_new_customer(self) -> None:
-        '''Check created customer attributes'''
+        '''Test customer attributes'''
         girarda = Customer.objects.get(phone_number=14037144007)
         denisea = Customer.objects.get(phone_number=14036672458)
         deniser = Customer.objects.get(phone_number=18542766304)
@@ -54,7 +57,7 @@ class CustomerTestCaseWithoutVehicle(TestCase):
         
 
     def test_assign_vehicle_to_customer(self) -> None:
-        '''Test assigning a vehicle for created customer'''
+        '''Test vehicle relationship'''
 
         # Create Customer objects
         girarda = Customer.objects.get(phone_number=14037144007)
@@ -101,5 +104,22 @@ class CustomerTestCaseWithoutVehicle(TestCase):
 
         # Check that vehicle owner is correct.
         self.assertEqual(v1.customer, girarda)
-        self.assertEqual(v2.customer, denisea)
-        self.assertEqual(v3.customer, deniser)
+        self.assertEqual(v2.make, 'BMW')
+        self.assertEqual(v3.vin, '1FAHP3FNXAW231964')
+    
+    def test_create_repair_order_no_vehicle(self) -> None:
+        '''Test repair order relationship'''
+        deniser = Customer.objects.get(phone_number=18542766304)
+        deniser.save()
+        ro1 = RepairOrder.objects.create(
+            customer = deniser,
+        )
+        ro1.save()
+    
+    def test_create_repair_order_with_vehicle(self) -> None:
+        '''Test repair order relationship'''
+        pass
+
+    def test_create_comment_for_repair_order(self) -> None:
+        '''Test creating comment for repair order'''
+        pass
