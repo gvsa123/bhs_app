@@ -119,7 +119,7 @@ class RepairOrder(models.Model):
     ro = models.BigAutoField(primary_key=True)
     customer = models.ForeignKey('Customer', on_delete=models.RESTRICT) #models.OneToOneField(Customer, blank=True, on_delete=models.PROTECT)
     vin = models.ForeignKey('Vehicle', on_delete=models.RESTRICT, null=True) #models.OneToOneField(Customer, blank=True, on_delete=models.PROTECT)
-    date = models.DateField(default=date.today(), blank=False, null=False)
+    date = models.DateField(default=date.today, blank=False, null=False)
     completed = models.BooleanField(default=False)
 
     def __str__(self) -> str:
