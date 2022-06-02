@@ -40,37 +40,38 @@ class ModelRelationshipTest(TestCase):
     
     def test_create_new_customer(self) -> None:
         '''Test customer attributes'''
-        girarda = Customer.objects.get(phone_number=14037144007)
-        denisea = Customer.objects.get(phone_number=14036672458)
-        deniser = Customer.objects.get(phone_number=18542766304)
-        
-        girarda.save()
-        denisea.save()
-        deniser.save()
+        c1 = Customer.objects.get(phone_number=14037144007)
+        c2 = Customer.objects.get(phone_number=14036672458)
+        c3 = Customer.objects.get(phone_number=18542766304)
+        c1.save()
+        c2.save()
+        c3.save()
 
-        self.assertEqual(girarda.first_name, 'Girard')
-        self.assertEqual(denisea.last_name, 'Aquino')
-        self.assertEqual(deniser.address, '37 hollywood dr los angeles california')
-        self.assertIsNotNone(girarda.pk)
-        self.assertIsNotNone(denisea.pk)
-        self.assertIsNotNone(deniser.pk)
+        self.assertIsInstance(c1, Customer)
+        self.assertIsInstance(c2, Customer)
+        self.assertIsInstance(c3, Customer)
+        self.assertEqual(c1.first_name, 'Girard')
+        self.assertEqual(c2.last_name, 'Aquino')
+        self.assertEqual(c3.address, '37 hollywood dr los angeles california')
+        self.assertIsNotNone(c1.pk)
+        self.assertIsNotNone(c2.pk)
+        self.assertIsNotNone(c3.pk)
         
 
     def test_assign_vehicle_to_customer(self) -> None:
         '''Test vehicle relationship'''
 
         # Create Customer objects
-        girarda = Customer.objects.get(phone_number=14037144007)
-        denisea = Customer.objects.get(phone_number=14036672458)
-        deniser = Customer.objects.get(phone_number=18542766304)
-
-        girarda.save()
-        denisea.save()
-        deniser.save()
-
+        c1 = Customer.objects.get(phone_number=14037144007)
+        c2 = Customer.objects.get(phone_number=14036672458)
+        c3 = Customer.objects.get(phone_number=18542766304)
+        c1.save()
+        c2.save()
+        c3.save()
+         
         # Create Vehicle objects
         Vehicle.objects.create(
-            customer = girarda,
+            customer = c1,
             vin = 'JH4DA1745GS002661',
             year = 1986,
             make = 'Acura',
@@ -78,7 +79,7 @@ class ModelRelationshipTest(TestCase):
             mileage = randint(25000, 250000)
         )
         Vehicle.objects.create(
-            customer = denisea,
+            customer = c2,
             vin = 'WBAGH83401DP17574',
             year = 2001,
             make = 'BMW',
@@ -86,7 +87,7 @@ class ModelRelationshipTest(TestCase):
             mileage = randint(25000, 250000)
         )
         Vehicle.objects.create(
-            customer = deniser,
+            customer = c3,
             vin = '1FAHP3FNXAW231964',
             year = 2010,
             make = 'Ford',
@@ -97,28 +98,85 @@ class ModelRelationshipTest(TestCase):
         v1 = Vehicle.objects.get(vin='JH4DA1745GS002661')
         v2 = Vehicle.objects.get(vin='WBAGH83401DP17574')
         v3 = Vehicle.objects.get(vin='1FAHP3FNXAW231964')
-
         v1.save()
         v2.save()
         v3.save()
 
         # Check that vehicle owner is correct.
-        self.assertEqual(v1.customer, girarda)
+        self.assertIsInstance(v1, Vehicle)
+        self.assertEqual(v1.customer, c1)
         self.assertEqual(v2.make, 'BMW')
         self.assertEqual(v3.vin, '1FAHP3FNXAW231964')
     
     def test_create_repair_order_no_vehicle(self) -> None:
-        '''Test repair order relationship'''
-        deniser = Customer.objects.get(phone_number=18542766304)
-        deniser.save()
-        ro1 = RepairOrder.objects.create(
-            customer = deniser,
-        )
+        '''Test repair order relationship with customer but no vehicle'''
+        c1 = Customer.objects.get(phone_number=14037144007)
+        c2 = Customer.objects.get(phone_number=14036672458)
+        c3 = Customer.objects.get(phone_number=18542766304)
+        c1.save()
+        c2.save()
+        c3.save()
+
+        ro1 = RepairOrder.objects.create(customer=c1)
+        ro2 = RepairOrder.objects.create(customer=c2)
+        ro3 = RepairOrder.objects.create(customer=c3)
         ro1.save()
+        ro2.save()
+        ro3.save()
+
+        self.assertIsInstance(ro1, RepairOrder)
+        self.assertIsNotNone(ro1.pk)
+        self.assertIsNone(ro1.vin)
     
     def test_create_repair_order_with_vehicle(self) -> None:
-        '''Test repair order relationship'''
-        pass
+        '''Test repair order relationship with customer with vehicle'''
+        c1 = Customer.objects.get(phone_number=14037144007)
+        c2 = Customer.objects.get(phone_number=14036672458)
+        c3 = Customer.objects.get(phone_number=18542766304)
+        c1.save()
+        c2.save()
+        c3.save()
+
+        # Create Vehicle objects
+        Vehicle.objects.create(
+            customer = c1,
+            vin = 'JH4DA1745GS002661',
+            year = 1986,
+            make = 'Acura',
+            model = 'Integra',
+            mileage = randint(25000, 250000)
+        )
+        Vehicle.objects.create(
+            customer = c2,
+            vin = 'WBAGH83401DP17574',
+            year = 2001,
+            make = 'BMW',
+            model = '7 Series',
+            mileage = randint(25000, 250000)
+        )
+        Vehicle.objects.create(
+            customer = c3,
+            vin = '1FAHP3FNXAW231964',
+            year = 2010,
+            make = 'Ford',
+            model = 'Focus',
+            mileage = randint(25000, 250000)
+        )
+        
+        v1 = Vehicle.objects.get(vin='JH4DA1745GS002661').save()
+        v2 = Vehicle.objects.get(vin='WBAGH83401DP17574').save()
+        v3 = Vehicle.objects.get(vin='1FAHP3FNXAW231964').save()
+        # v1.save()
+        # v2.save()
+        # v3.save()
+
+        ro1 = RepairOrder.objects.create(customer=c1).save()
+        ro2 = RepairOrder.objects.create(customer=c2).save()
+        ro3 = RepairOrder.objects.create(customer=c3).save()
+
+        # ro1.save()
+        # ro2.save()
+        # ro3.save()
 
     def test_create_comment_for_repair_order(self) -> None:
         '''Test creating comment for repair order'''
