@@ -104,7 +104,7 @@ class Vehicle(models.Model):
     ]
     
     vin = models.CharField(unique=True, max_length=17)
-    customer = models.ForeignKey(Customer, on_delete=models.RESTRICT)
+    customer = models.ForeignKey('Customer', on_delete=models.RESTRICT)
     year = models.CharField(choices=YEARS, max_length=4, default=YTD)
     make = models.CharField(choices=MFR, max_length=50, null=True)
     model = models.CharField(max_length=20, null=True)
@@ -117,7 +117,7 @@ class RepairOrder(models.Model):
     '''Unique repair order associated'''
 
     ro = models.AutoField(primary_key=True)
-    customer = models.ForeignKey(Customer, on_delete=models.RESTRICT) #models.OneToOneField(Customer, blank=True, on_delete=models.PROTECT)
+    customer = models.ForeignKey('Customer', on_delete=models.RESTRICT) #models.OneToOneField(Customer, blank=True, on_delete=models.PROTECT)
     vin = models.ForeignKey(Vehicle, on_delete=models.RESTRICT) #models.OneToOneField(Customer, blank=True, on_delete=models.PROTECT)
     date = models.DateField(default=date.today(), blank=False, null=False)
     comment = models.TextField()
@@ -132,6 +132,6 @@ class Comments(models.Model):
     - add ro_num with 1-to-1 from RepairOrder class
     '''
     
-    ro = models.ForeignKey(RepairOrder, on_delete=models.PROTECT, null=True)
+    ro = models.ForeignKey('RepairOrder', on_delete=models.PROTECT, null=True)
     date = models.DateTimeField(blank=False)
     comment = models.TextField()
