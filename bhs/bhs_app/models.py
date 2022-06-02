@@ -114,20 +114,19 @@ class Vehicle(models.Model):
         return self.vin
 
 class RepairOrder(models.Model):
-    '''Unique repair order associated'''
+    '''Unique repair order'''
 
-    ro = models.AutoField(primary_key=True)
+    ro = models.DecimalField(primary_key=True, max_digits=5, decimal_places=0)
     customer = models.ForeignKey('Customer', on_delete=models.RESTRICT) #models.OneToOneField(Customer, blank=True, on_delete=models.PROTECT)
-    vin = models.ForeignKey(Vehicle, on_delete=models.RESTRICT) #models.OneToOneField(Customer, blank=True, on_delete=models.PROTECT)
+    vin = models.ForeignKey('Vehicle', on_delete=models.RESTRICT) #models.OneToOneField(Customer, blank=True, on_delete=models.PROTECT)
     date = models.DateField(default=date.today(), blank=False, null=False)
-    comment = models.TextField()
     completed = models.BooleanField(default=False)
 
     def __str__(self) -> str:
-        return self.ro_num
+        return self.ro
 
 class Comments(models.Model):
-    '''Organizes comments to it's own table
+    '''Comments table associated with repair order
     TODO:
     - add ro_num with 1-to-1 from RepairOrder class
     '''

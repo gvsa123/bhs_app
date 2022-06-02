@@ -16,7 +16,7 @@ class VehicleForm(ModelForm):
 class RepairOrderForm(ModelForm):
     class Meta:
         model = models.RepairOrder
-        fields = ['vin','date','comment','completed']
+        fields = ['ro','date','completed']
 
 class CommentsForm(ModelForm):
     class Meta:
