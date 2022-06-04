@@ -50,13 +50,32 @@ class ModelRelationshipTest(TestCase):
         self.assertIsInstance(c1, Customer)
         self.assertIsInstance(c2, Customer)
         self.assertIsInstance(c3, Customer)
+
         self.assertEqual(c1.first_name, 'Girard')
+        self.assertEqual(c1.last_name, 'Aquino')
+        self.assertEqual(c1.phone_number, 14037144007)
+        self.assertEqual(c1.email, 'girard.aquino@email.com')
+        self.assertEqual(c1.address, '16 walgrove mews se calgary')
+
+        self.assertEqual(c2.first_name, 'Denise')
         self.assertEqual(c2.last_name, 'Aquino')
+        self.assertEqual(c2.phone_number, 14036672458)
+        self.assertEqual(c2.email, 'denise.aquino@email.com')
+        self.assertEqual(c2.address, '16 walgrove mews se calgary')
+
+        self.assertEqual(c3.first_name, 'Denise')
+        self.assertEqual(c3.last_name, 'Richards')
+        self.assertEqual(c3.phone_number, 18542766304)
+        self.assertEqual(c3.email, 'denise.richards@emaildomain.com')
         self.assertEqual(c3.address, '37 hollywood dr los angeles california')
+
         self.assertIsNotNone(c1.pk)
         self.assertIsNotNone(c2.pk)
         self.assertIsNotNone(c3.pk)
-        
+    
+    def test_create_new_customer_no_phone_number(self) -> None:
+        '''Tests that the model will not accept blank phone_number field'''
+        pass
 
     def test_assign_vehicle_to_customer(self) -> None:
         '''Test vehicle relationship'''
@@ -105,11 +124,27 @@ class ModelRelationshipTest(TestCase):
         # Check that vehicle owner is correct.
         self.assertIsInstance(v1, Vehicle)
         self.assertEqual(v1.customer, c1)
+        self.assertEqual(v1.vin, 'JH4DA1745GS002661')
+        self.assertEqual(v1.year, '1986')
+        self.assertEqual(v1.make, 'Acura')
+        self.assertEqual(v1.model, 'Integra')
+
+        self.assertIsInstance(v2, Vehicle)
+        self.assertEqual(v2.customer, c2)
+        self.assertEqual(v2.vin, 'WBAGH83401DP17574')
+        self.assertEqual(v2.year, '2001')
         self.assertEqual(v2.make, 'BMW')
+        self.assertEqual(v2.model, '7 Series')
+
+        self.assertIsInstance(v3, Vehicle)
+        self.assertEqual(v3.customer, c3)
         self.assertEqual(v3.vin, '1FAHP3FNXAW231964')
-    
+        self.assertEqual(v3.year, '2010')
+        self.assertEqual(v3.make, 'Ford')
+        self.assertEqual(v3.model, 'Focus')
+
     def test_create_repair_order_no_vehicle(self) -> None:
-        '''Test repair order relationship with customer but no vehicle'''
+        '''Test repair order relationship with customer with no vehicle'''
         c1 = Customer.objects.get(phone_number=14037144007)
         c2 = Customer.objects.get(phone_number=14036672458)
         c3 = Customer.objects.get(phone_number=18542766304)
@@ -127,7 +162,15 @@ class ModelRelationshipTest(TestCase):
         self.assertIsInstance(ro1, RepairOrder)
         self.assertIsNotNone(ro1.pk)
         self.assertIsNone(ro1.vin)
-    
+        
+        self.assertIsInstance(ro2, RepairOrder)
+        self.assertIsNotNone(ro2.pk)
+        self.assertIsNone(ro2.vin)
+        
+        self.assertIsInstance(ro3, RepairOrder)
+        self.assertIsNotNone(ro3.pk)
+        self.assertIsNone(ro3.vin)
+
     def test_create_repair_order_with_vehicle(self) -> None:
         '''Test repair order relationship with customer with vehicle'''
         # Create Vehicle objects
@@ -246,3 +289,11 @@ class ModelRelationshipTest(TestCase):
         co1.save()
         co2.save()
         co3.save()
+
+        self.assertIsNotNone(co1.ro_id)
+        self.assertIsNotNone(co2.ro_id)
+        self.assertIsNotNone(co3.ro_id)
+
+        self.assertIs(co1.ro_id, ro1.pk)
+        self.assertIs(co2.ro_id, ro2.pk)
+        self.assertIs(co3.ro_id, ro3.pk)
