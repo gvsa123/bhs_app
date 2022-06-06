@@ -14,21 +14,24 @@ from django.test import TestCase
 from bhs_app.models import Comments, Customer, RepairOrder, Vehicle
 
 class ModelRelationshipTest(TestCase):
-    '''Tests relationships between models.'''
+    '''Tests relationships between models.
+    TODO:
+    - Sanitize tests
+    '''
     def setUp(self) -> None:
         Customer.objects.create(
-            first_name = 'Girard',
-            last_name = 'Aquino',
-            phone_number = '14037144007',
-            email = 'girard.aquino@email.com',
-            address = '16 walgrove mews se calgary'
+            first_name = 'Ojigkwanong',
+            last_name = 'Cavan',
+            phone_number = '15823338105',
+            email = 'OjigkwanongC@gmail.com',
+            address = '2629 Yonge Street Toronto Ontario'
         )
         Customer.objects.create(
-            first_name = 'Denise',
-            last_name = 'Aquino',
-            phone_number = '14036672458',
-            email = 'denise.aquino@email.com',
-            address = '16 walgrove mews se calgary'
+            first_name = 'Drupada',
+            last_name = 'Spellmeyer',
+            phone_number = '13109996564',
+            email = 'drupspell@yahoo.ca',
+            address = '2629 Yonge Street Toronto Ontario'
         )
         Customer.objects.create(
             first_name = 'Denise',
@@ -40,8 +43,8 @@ class ModelRelationshipTest(TestCase):
     
     def test_create_new_customer(self) -> None:
         '''Test customer attributes'''
-        c1 = Customer.objects.get(phone_number=14037144007)
-        c2 = Customer.objects.get(phone_number=14036672458)
+        c1 = Customer.objects.get(phone_number=15823338105)
+        c2 = Customer.objects.get(phone_number=13109996564)
         c3 = Customer.objects.get(phone_number=18542766304)
         c1.save()
         c2.save()
@@ -51,17 +54,17 @@ class ModelRelationshipTest(TestCase):
         self.assertIsInstance(c2, Customer)
         self.assertIsInstance(c3, Customer)
 
-        self.assertEqual(c1.first_name, 'Girard')
-        self.assertEqual(c1.last_name, 'Aquino')
-        self.assertEqual(c1.phone_number, 14037144007)
-        self.assertEqual(c1.email, 'girard.aquino@email.com')
-        self.assertEqual(c1.address, '16 walgrove mews se calgary')
+        self.assertEqual(c1.first_name, 'Ojigkwanong')
+        self.assertEqual(c1.last_name, 'Cavan')
+        self.assertEqual(c1.phone_number, 15823338105)
+        self.assertEqual(c1.email, 'OjigkwanongC@gmail.com')
+        self.assertEqual(c1.address, '2629 Yonge Street Toronto Ontario')
 
-        self.assertEqual(c2.first_name, 'Denise')
-        self.assertEqual(c2.last_name, 'Aquino')
-        self.assertEqual(c2.phone_number, 14036672458)
-        self.assertEqual(c2.email, 'denise.aquino@email.com')
-        self.assertEqual(c2.address, '16 walgrove mews se calgary')
+        self.assertEqual(c2.first_name, 'Drupada')
+        self.assertEqual(c2.last_name, 'Spellmeyer')
+        self.assertEqual(c2.phone_number, 13109996564)
+        self.assertEqual(c2.email, 'drupspell@yahoo.ca')
+        self.assertEqual(c2.address, '2629 Yonge Street Toronto Ontario')
 
         self.assertEqual(c3.first_name, 'Denise')
         self.assertEqual(c3.last_name, 'Richards')
@@ -72,17 +75,13 @@ class ModelRelationshipTest(TestCase):
         self.assertIsNotNone(c1.pk)
         self.assertIsNotNone(c2.pk)
         self.assertIsNotNone(c3.pk)
-    
-    def test_create_new_customer_no_phone_number(self) -> None:
-        '''Tests that the model will not accept blank phone_number field'''
-        pass
 
     def test_assign_vehicle_to_customer(self) -> None:
         '''Test vehicle relationship'''
 
         # Create Customer objects
-        c1 = Customer.objects.get(phone_number=14037144007)
-        c2 = Customer.objects.get(phone_number=14036672458)
+        c1 = Customer.objects.get(phone_number=15823338105)
+        c2 = Customer.objects.get(phone_number=13109996564)
         c3 = Customer.objects.get(phone_number=18542766304)
         c1.save()
         c2.save()
@@ -145,8 +144,8 @@ class ModelRelationshipTest(TestCase):
 
     def test_create_repair_order_no_vehicle(self) -> None:
         '''Test repair order relationship with customer with no vehicle'''
-        c1 = Customer.objects.get(phone_number=14037144007)
-        c2 = Customer.objects.get(phone_number=14036672458)
+        c1 = Customer.objects.get(phone_number=15823338105)
+        c2 = Customer.objects.get(phone_number=13109996564)
         c3 = Customer.objects.get(phone_number=18542766304)
         c1.save()
         c2.save()
@@ -174,8 +173,8 @@ class ModelRelationshipTest(TestCase):
     def test_create_repair_order_with_vehicle(self) -> None:
         '''Test repair order relationship with customer with vehicle'''
         # Create Vehicle objects
-        c1 = Customer.objects.get(phone_number=14037144007)
-        c2 = Customer.objects.get(phone_number=14036672458)
+        c1 = Customer.objects.get(phone_number=15823338105)
+        c2 = Customer.objects.get(phone_number=13109996564)
         c3 = Customer.objects.get(phone_number=18542766304)
         c1.save()
         c2.save()
@@ -240,8 +239,8 @@ class ModelRelationshipTest(TestCase):
     def test_create_comment_for_repair_order(self) -> None:
         '''Test creating comment for repair order'''
         # Create objects
-        c1 = Customer.objects.get(phone_number=14037144007)
-        c2 = Customer.objects.get(phone_number=14036672458)
+        c1 = Customer.objects.get(phone_number=15823338105)
+        c2 = Customer.objects.get(phone_number=13109996564)
         c3 = Customer.objects.get(phone_number=18542766304)
         c1.save()
         c2.save()
