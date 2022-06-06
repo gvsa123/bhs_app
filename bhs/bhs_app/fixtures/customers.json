@@ -1,0 +1,35 @@
+[
+    {
+        "model": "bhs_app.customer",
+        "pk": 1,
+        "fields": {
+            "first_name": "Hunter",
+            "last_name": "MacDonald",
+            "phone_number": "14752693932",
+            "email": "etienne.vaillancourt@richard.com",
+            "address": "38 Route Isaac Suite 873, Ste-Sylvie, MB L7J6S1"
+        }
+    },
+    {
+        "model": "bhs_app.customer",
+        "pk": 2,
+        "fields": {
+            "first_name": "Austin",
+            "last_name": "Thompson",
+            "phone_number": "18748895587",
+            "email": "rjacques@gingras.org",
+            "address": "14 Pont Harvey Apt. 479, Saint-Honorée, PE A9J 4S3"
+        }
+    },
+    {
+        "model": "bhs_app.customer",
+        "pk": 3,
+        "fields": {
+            "first_name":"Riley",
+            "last_name": "Ross",
+            "phone_number": "16089147248",
+            "email":"remy.landry@yahoo.com",
+            "address": "8 Avenue Côté Apt. 218, Sainte-Denis-du-Nord, ON H5C 7G8"
+        }
+    }
+]

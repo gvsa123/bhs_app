@@ -31,7 +31,6 @@ def create_new_vehicle(request):
     '''Create a new vehicle
     TODO:
     -   where do you assign form_customer pk to form_vehicle?
-    -   define inside create_new_customer?
     '''
     form_vehicle = VehicleForm(request.POST)
     if form_vehicle.is_valid():
