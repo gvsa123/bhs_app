@@ -13,12 +13,12 @@
     </tr>
     {% for customer in data %}
     <tr>
-        <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer_id }}/">{{ customer.customer_id }}</a></td>
-        <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer_id }}/">{{ customer.first_name }}</a></td>
-        <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer_id }}/">{{ customer.last_name }}</a></td>
-        <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer_id }}/">{{ customer.phone_number }}</a></td>
-        <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer_id }}/">{{ customer.email }}</a></td>
-        <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer_id }}/">{{ customer.address }}</a></td>
+        <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer }}/">{{ customer.customer }}</a></td>
+        <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer }}/">{{ customer.first_name }}</a></td>
+        <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer }}/">{{ customer.last_name }}</a></td>
+        <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer }}/">{{ customer.phone_number }}</a></td>
+        <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer }}/">{{ customer.email }}</a></td>
+        <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer }}/">{{ customer.address }}</a></td>
     </tr>
     {% endfor %}
 </table>
