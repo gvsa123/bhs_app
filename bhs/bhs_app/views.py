@@ -22,8 +22,11 @@ def create_new_customer(request):
             form_customer.save(commit=True)
             return HttpResponseRedirect('/thanks/')
     else:
-        form_customer = CustomerForm() #not needed?
-    return render(request, 'bhs_app/create_new_customer.html',{'form_customer': form_customer, 'form_vehicle': create_new_vehicle(request)}
+        form_customer = CustomerForm()
+    return render(
+        request,
+        'bhs_app/create_new_customer.html',
+        {'form_customer': form_customer, 'form_vehicle': create_new_vehicle(request)}
     )
 
 @login_required(login_url='login')
