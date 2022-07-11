@@ -76,16 +76,13 @@ WSGI_APPLICATION = 'bhs.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'bhs_auto',
-        'USER': 'girard',
-        'PASSWORD': '6D23jchft01!',
         'TEST': {
             'NAME': 'test_bhs_auto'
         }
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
