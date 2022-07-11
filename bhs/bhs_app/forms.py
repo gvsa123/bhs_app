@@ -11,12 +11,12 @@ class CustomerForm(ModelForm):
 class VehicleForm(ModelForm):
     class Meta:
         model = models.Vehicle
-        fields = ['vin', 'customer_id']
+        fields = ['vin', 'year', 'make', 'model', 'mileage']
 
 class RepairOrderForm(ModelForm):
     class Meta:
         model = models.RepairOrder
-        fields = ['vin','date','comment','completed']
+        fields = ['ro','date','completed']
 
 class CommentsForm(ModelForm):
     class Meta:

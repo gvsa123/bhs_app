@@ -1,8 +1,7 @@
 {% extends 'bhs_app/base.html' %}
 
 {% block content %}
-<p> Existing Customers </p>
-<!-- Create for loop - iterate over data -->
+<h2><p> Existing Customers </p></h2>
 <table>
     <tr>
         <th>ID</th>
@@ -12,17 +11,15 @@
         <th>Email</th>
         <th>Address</th>
     </tr>
-    {% for cust in all_customer_data %}
+    {% for customer in data %}
     <tr>
-        <td>{{ cust.customer_id }}</td>
-        <td>{{ cust.first_name }}</td>
-        <td>{{ cust.last_name }}</td>
-        <td>{{ cust.phone_number }}</td>
-        <td>{{ cust.email }}</td>
-        <td>{{ cust.address }}</td>
+        <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer }}/">{{ customer.customer }}</a></td>
+        <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer }}/">{{ customer.first_name }}</a></td>
+        <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer }}/">{{ customer.last_name }}</a></td>
+        <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer }}/">{{ customer.phone_number }}</a></td>
+        <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer }}/">{{ customer.email }}</a></td>
+        <td><a href="{{ 'view_customer_profile' }}/{{ customer.customer }}/">{{ customer.address }}</a></td>
     </tr>
     {% endfor %}
 </table>
-
-<h2>Delete this page!!!</h2>
 {% endblock %}
