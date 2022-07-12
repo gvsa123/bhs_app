@@ -26,19 +26,29 @@ def create_new_customer(request):
     return render(
         request,
         'bhs_app/create_new_customer.html',
-        {'form_customer': form_customer, 'form_vehicle': create_new_vehicle(request)}
+        {'form_customer': form_customer}
     )
 
 @login_required(login_url='login')
-def create_new_vehicle(request):
+def create_new_vehicle(request, customer_id):
     '''Create a new vehicle
     TODO:
-    -   where do you assign form_customer pk to form_vehicle?
+    -   make sure vehicle is related to customer
     '''
-    form_vehicle = VehicleForm(request.POST)
-    if form_vehicle.is_valid():
-        form_vehicle.save(commit=False)
-    return form_vehicle
+    customer = models.Customer.objects.all().filter(pk=customer_id)
+
+    if request.method == 'POST':
+        form_vehicle = VehicleForm(request.POST)
+        if form_vehicle.is_valid():
+            form_vehicle.save(commit=True)
+            return HttpResponseRedirect('/thanks/')
+    else:
+        form_vehicle = VehicleForm()
+    return render(
+        request, 'bhs_app/create_new_vehicle.html',
+        {'form_vehicle': form_vehicle,'data': customer}
+    )
+
 
 @login_required(login_url='login')
 def create_repair_order(request):
@@ -86,7 +96,7 @@ def view_customers(request):
 def view_customer_profile(request, customer_id):
     '''Display customer profile page
     '''    
-    customer = models.Customer.objects.all().filter(pk=customer_id)    
+    customer = models.Customer.objects.all().filter(pk=customer_id)
     return render(request, 'bhs_app/view_customer_profile.html', {'data': customer})
 
 @login_required(login_url='login')

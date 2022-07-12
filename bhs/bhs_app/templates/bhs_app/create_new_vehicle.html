@@ -1,10 +1,10 @@
 {% extends 'bhs_app/base.html' %}
 
 {% block content %}
-<h2>Create New Customer</h2>
-<form action="/create_new_customer/" method="POST">
+<h2>Create New Vehicle</h2>
+<form action="/create_new_vehicle/" method="POST">
     {% csrf_token %}
-    {{ form_customer }}
+    {{ form_vehicle }}
     <p><input type="submit" value="Submit"></p>
 </form>
 {% endblock %}
