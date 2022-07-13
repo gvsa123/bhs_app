@@ -1,0 +1,10 @@
+{% extends 'bhs_app/base.html' %}
+
+{% block content %}
+<h2>Create New Repair Order</h2>
+<form action="/create_new_repair_order/" method="POST">
+    {% csrf_token %}
+    {{ form_repair_order }}
+    <p><input type="submit" value="Submit"></p>
+</form>
+{% endblock %}

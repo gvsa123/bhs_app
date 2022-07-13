@@ -11,4 +11,6 @@ urlpatterns = [
     path('search/view_customer_profile/<customer_id>/', views.view_customer_profile, name='view_customer_profile'),
     path('view_customers/view_customer_profile/<customer_id>/', views.view_customer_profile, name='view_customer_profile'),
     path('view_customers/view_customer_profile/<customer_id>/create_new_vehicle/', views.create_new_vehicle, name='create_new_vehicle'),
+    path('view_customers/view_customer_profile/<customer_id>/create_new_comment/', views.create_new_comment, name='create_new_comment'),
+    path('view_customers/view_customer_profile/<customer_id>/create_new_repair_order/', views.create_repair_order, name='create_new_repair_order'),
 ]

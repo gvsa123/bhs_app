@@ -51,20 +51,38 @@ def create_new_vehicle(request, customer_id):
 
 
 @login_required(login_url='login')
-def create_repair_order(request):
+def create_repair_order(request, customer_id):
     '''Create a repair order'''
-    form_ro = RepairOrderForm(request.POST)
-    if form_ro.is_valid():
-        form_ro.save(commit=False)
-    return form_ro
+    customer = models.Customer.objects.all().filter(pk=customer_id)
+
+    if request.method == 'POST':
+        form_repair_order = RepairOrderForm(request.POST)
+        if form_repair_order.is_valid():
+            form_repair_order.save(commit=True)
+            return HttpResponseRedirect('/thanks/')
+    else:
+        form_repair_order = RepairOrderForm()
+    return render(
+        request, 'bhs_app/create_new_repair_order.html',
+        {'form_repair_order': form_repair_order,'data': customer}
+    )
 
 @login_required(login_url='login')
-def create_comment(request):
-    '''Create a comment'''
-    form_comment = CommentsForm(request.POST)
-    if form_comment.is_valid():
-        form_comment.save(commit=False)
-    return form_comment
+def create_new_comment(request, customer_id):
+    '''Create a comment.'''
+    customer = models.Customer.objects.all().filter(pk=customer_id)
+
+    if request.method == 'POST':
+        form_comment = CommentForm(request.POST)
+        if form_comment.is_valid():
+            form_comment.save(commit=True)
+            return HttpResponseRedirect('/thanks/')
+    else:
+        form_comment = CommentsForm()
+    return render(
+        request, 'bhs_app/create_new_comment.html',
+        {'form_comment': form_comment,'data': customer}
+    )
 
 @login_required(login_url='login')
 def search(request):
