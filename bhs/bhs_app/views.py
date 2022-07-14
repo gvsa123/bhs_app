@@ -51,7 +51,7 @@ def create_new_vehicle(request, customer_id):
 
 
 @login_required(login_url='login')
-def create_repair_order(request, customer_id):
+def create_new_repair_order(request, customer_id):
     '''Create a repair order'''
     customer = models.Customer.objects.all().filter(pk=customer_id)
 
@@ -73,7 +73,7 @@ def create_new_comment(request, customer_id):
     customer = models.Customer.objects.all().filter(pk=customer_id)
 
     if request.method == 'POST':
-        form_comment = CommentForm(request.POST)
+        form_comment = CommentsForm(request.POST)
         if form_comment.is_valid():
             form_comment.save(commit=True)
             return HttpResponseRedirect('/thanks/')
@@ -115,7 +115,11 @@ def view_customer_profile(request, customer_id):
     '''Display customer profile page
     '''    
     customer = models.Customer.objects.all().filter(pk=customer_id)
-    return render(request, 'bhs_app/view_customer_profile.html', {'data': customer})
+    return render(
+        request,
+        'bhs_app/view_customer_profile.html',
+        {'data': customer}
+    )
 
 @login_required(login_url='login')
 def thanks(request):
