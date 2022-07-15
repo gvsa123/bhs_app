@@ -105,7 +105,7 @@ class Vehicle(models.Model):
     
     vin = models.CharField(unique=True, max_length=17)
     customer = models.ForeignKey('Customer', on_delete=models.RESTRICT)
-    year = models.CharField(choices=YEARS, max_length=4, default=YTD)
+    year = models.PositiveSmallIntegerField(choices=YEARS, default=YTD)
     make = models.CharField(choices=MFR, max_length=50, null=True)
     model = models.CharField(max_length=20, null=True)
     mileage = models.PositiveIntegerField(null=True)
