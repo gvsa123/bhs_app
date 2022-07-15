@@ -9,8 +9,12 @@ TODO:
 from . import models
 
 class AllCustomers(models.Customer):
-    '''Returns all the values of model'''
+    '''Returns all customers'''
     all_customers = models.Customer.objects.all() # use values()?
+
+class AllVehicles(models.Vehicle):
+    '''Retruns all vehicels'''
+    all_vehicles = models.Vehicle.objects.all()
 
 
 
