@@ -36,6 +36,7 @@ def create_new_vehicle(request, customer_id):
     -   make sure vehicle is related to customer
     '''
     customer = models.Customer.objects.all().filter(pk=customer_id)
+    customer_id = list(customer.values())[0].get('customer')
 
     if request.method == 'POST':
         form_vehicle = VehicleForm(request.POST)
@@ -46,7 +47,7 @@ def create_new_vehicle(request, customer_id):
         form_vehicle = VehicleForm()
     return render(
         request, 'bhs_app/create_new_vehicle.html',
-        {'form_vehicle': form_vehicle,'data': customer}
+        {'form_vehicle': form_vehicle,'data': customer_id}
     )
 
 
@@ -115,10 +116,19 @@ def view_customer_profile(request, customer_id):
     '''Display customer profile page
     '''    
     customer = models.Customer.objects.all().filter(pk=customer_id)
+    customer_id = list(customer.values())[0].get('customer')
+    # print(customer_id)
+    # print(type(list(customer_id)))
+    # print(list(customer_id))
+    # cidict = list(customer_id)[0]
+    # print(cidict.keys())
+
+    # return HttpResponse(customer_id)
+    
     return render(
         request,
         'bhs_app/view_customer_profile.html',
-        {'data': customer}
+        {'data': customer, 'customer_id': customer_id}
     )
 
 @login_required(login_url='login')
