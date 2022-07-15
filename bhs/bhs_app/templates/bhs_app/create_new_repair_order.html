@@ -2,7 +2,7 @@
 
 {% block content %}
 <h2>Create New Repair Order</h2>
-<form action="/create_new_repair_order/" method="POST">
+<form method="POST">
     {% csrf_token %}
     {{ form_repair_order }}
     <p><input type="submit" value="Submit"></p>

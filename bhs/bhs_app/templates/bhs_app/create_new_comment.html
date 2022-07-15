@@ -2,7 +2,7 @@
 
 {% block content %}
 <h2>Create New Comment</h2>
-<form action="/create_new_comment/" method="POST">
+<form method="POST">
     {% csrf_token %}
     {{ form_comment }}
     <p><input type="submit" value="Submit"></p>

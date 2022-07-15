@@ -2,7 +2,7 @@
 
 {% block content %}
 <h2>Create New Vehicle</h2>
-<form action="/create_new_vehicle/" method="POST">
+<form method="POST"> 
     {% csrf_token %}
     {{ form_vehicle }}
     <p><input type="submit" value="Submit"></p>
