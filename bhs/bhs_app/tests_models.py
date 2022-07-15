@@ -124,23 +124,86 @@ class ModelRelationshipTest(TestCase):
         self.assertIsInstance(v1, Vehicle)
         self.assertEqual(v1.customer, c1)
         self.assertEqual(v1.vin, 'JH4DA1745GS002661')
-        self.assertEqual(v1.year, '1986')
+        self.assertEqual(v1.year, 1986)
         self.assertEqual(v1.make, 'Acura')
         self.assertEqual(v1.model, 'Integra')
 
         self.assertIsInstance(v2, Vehicle)
         self.assertEqual(v2.customer, c2)
         self.assertEqual(v2.vin, 'WBAGH83401DP17574')
-        self.assertEqual(v2.year, '2001')
+        self.assertEqual(v2.year, 2001)
         self.assertEqual(v2.make, 'BMW')
         self.assertEqual(v2.model, '7 Series')
 
         self.assertIsInstance(v3, Vehicle)
         self.assertEqual(v3.customer, c3)
         self.assertEqual(v3.vin, '1FAHP3FNXAW231964')
-        self.assertEqual(v3.year, '2010')
+        self.assertEqual(v3.year, 2010)
         self.assertEqual(v3.make, 'Ford')
         self.assertEqual(v3.model, 'Focus')
+    
+    def test_assign_multiple_vehicles_to_customer(self) -> None:
+        '''Test many vehicles to one customer relationship'''
+
+        # Create Customer object
+        c1 = Customer.objects.get(phone_number=15823338105)
+        c1.save()
+         
+        # Create Vehicle objects
+        Vehicle.objects.create(
+            customer = c1,
+            vin = 'JH4DA1745GS002661',
+            year = 1986,
+            make = 'Acura',
+            model = 'Integra',
+            mileage = randint(25000, 250000)
+        )
+        Vehicle.objects.create(
+            customer = c1,
+            vin = 'WBAGH83401DP17574',
+            year = 2001,
+            make = 'BMW',
+            model = '7 Series',
+            mileage = randint(25000, 250000)
+        )
+        Vehicle.objects.create(
+            customer = c1,
+            vin = '1FAHP3FNXAW231964',
+            year = 2010,
+            make = 'Ford',
+            model = 'Focus',
+            mileage = randint(25000, 250000)
+        )
+
+        v1 = Vehicle.objects.get(vin='JH4DA1745GS002661')
+        v2 = Vehicle.objects.get(vin='WBAGH83401DP17574')
+        v3 = Vehicle.objects.get(vin='1FAHP3FNXAW231964')
+        v1.save()
+        v2.save()
+        v3.save()
+
+        # Check that vehicle owner is correct.
+        self.assertIsInstance(v1, Vehicle)
+        self.assertEqual(v1.customer, c1)
+        self.assertEqual(v1.vin, 'JH4DA1745GS002661')
+        self.assertEqual(v1.year, 1986)
+        self.assertEqual(v1.make, 'Acura')
+        self.assertEqual(v1.model, 'Integra')
+
+        self.assertIsInstance(v2, Vehicle)
+        self.assertEqual(v2.customer, c1)
+        self.assertEqual(v2.vin, 'WBAGH83401DP17574')
+        self.assertEqual(v2.year, 2001)
+        self.assertEqual(v2.make, 'BMW')
+        self.assertEqual(v2.model, '7 Series')
+
+        self.assertIsInstance(v3, Vehicle)
+        self.assertEqual(v3.customer, c1)
+        self.assertEqual(v3.vin, '1FAHP3FNXAW231964')
+        self.assertEqual(v3.year, 2010)
+        self.assertEqual(v3.make, 'Ford')
+        self.assertEqual(v3.model, 'Focus')
+
 
     def test_create_repair_order_no_vehicle(self) -> None:
         '''Test repair order relationship with customer with no vehicle'''
