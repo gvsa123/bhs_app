@@ -33,11 +33,8 @@ def create_new_customer(request):
 def create_new_vehicle(request, customer_id):
     '''Create a new vehicle
     TODO:
-    -   make sure vehicle is related to customer
+    -   populate form with initial={'customer': customer_obj}
     '''
-    customer = models.Customer.objects.all().filter(pk=customer_id)
-    customer_id = list(customer.values())[0].get('customer')
-
     if request.method == 'POST':
         form_vehicle = VehicleForm(request.POST)
         if form_vehicle.is_valid():
@@ -45,15 +42,18 @@ def create_new_vehicle(request, customer_id):
             return HttpResponseRedirect('/thanks/')
     else:
         form_vehicle = VehicleForm()
+
     return render(
         request, 'bhs_app/create_new_vehicle.html',
-        {'form_vehicle': form_vehicle,'data': customer_id}
+        {'form_vehicle': form_vehicle, 'data': customer_id}
     )
-
 
 @login_required(login_url='login')
 def create_new_repair_order(request, customer_id):
-    '''Create a repair order'''
+    '''Create a repair order
+    TODO:
+    - fix -> NOT NULL constraint customer_id
+    '''
     customer = models.Customer.objects.all().filter(pk=customer_id)
 
     if request.method == 'POST':
@@ -70,7 +70,10 @@ def create_new_repair_order(request, customer_id):
 
 @login_required(login_url='login')
 def create_new_comment(request, customer_id):
-    '''Create a comment.'''
+    '''Create a comment.
+    TODO:
+    - fix -> NOT NULL constraint customer_id
+    '''
     customer = models.Customer.objects.all().filter(pk=customer_id)
 
     if request.method == 'POST':
@@ -113,22 +116,19 @@ def view_customers(request):
 
 @login_required(login_url='login')
 def view_customer_profile(request, customer_id):
-    '''Display customer profile page
-    '''    
+    '''Display customer profile page'''
     customer = models.Customer.objects.all().filter(pk=customer_id)
-    customer_id = list(customer.values())[0].get('customer')
-    # print(customer_id)
-    # print(type(list(customer_id)))
-    # print(list(customer_id))
-    # cidict = list(customer_id)[0]
-    # print(cidict.keys())
-
-    # return HttpResponse(customer_id)
-    
+    customer_vehicles = managers.AllVehicles.all_vehicles.filter(
+        customer=customer[0]
+    )
     return render(
         request,
         'bhs_app/view_customer_profile.html',
-        {'data': customer, 'customer_id': customer_id}
+        {
+            'data_customer': customer,
+            'data_vehicle': customer_vehicles,
+            'customer_id': customer_id
+        }
     )
 
 @login_required(login_url='login')
