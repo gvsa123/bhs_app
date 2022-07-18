@@ -12,8 +12,8 @@ class CustomerForm(ModelForm):
 class VehicleForm(ModelForm):
     class Meta:
         model = models.Vehicle
-        fields = '__all__'
-        # exclude = ['customer']
+        # fields = '__all__'
+        exclude = ['customer']
         # fields = ['vin', 'year', 'make', 'model', 'mileage']
 
 class RepairOrderForm(ModelForm):
