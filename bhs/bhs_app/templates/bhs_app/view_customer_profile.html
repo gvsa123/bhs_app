@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h2><p> Customer Profile Page </p></h2>
+<h2> Customer Profile </h2>
 <table>
     <tr>
         <th>ID</th>
@@ -12,7 +12,7 @@
         <th>Email</th>
         <th>Address</th>
     </tr>
-    {% for customer in data_customer%}
+    {% for customer in data_customer %}
     <tr>
         <td> {{ customer.customer }} </td>
         <td> {{ customer.first_name }} </td>
@@ -20,6 +20,25 @@
         <td> {{ customer.phone_number }} </td>
         <td> {{ customer.email }} </td>
         <td> {{ customer.address }} </td>
+    </tr>
+    {% endfor %}
+</table>
+<h2> Vehicles</h2>
+<table>
+    <tr>
+        <th>VIN</th>
+        <th>Year</th>
+        <th>Make</th>
+        <th>Model</th>
+        <th>Mileage</th>
+    </tr>
+    {% for vehicle in data_vehicle%}
+    <tr>
+        <td> {{ vehicle.vin}}</td>
+        <td> {{ vehicle.year}}</td>
+        <td> {{ vehicle.make}}</td>
+        <td> {{ vehicle.model}}</td>
+        <td> {{ vehicle.mileage}}</td>
     </tr>
     {% endfor %}
 </table>

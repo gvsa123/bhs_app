@@ -122,9 +122,7 @@ def view_customers(request):
 def view_customer_profile(request, customer_id):
     '''Display customer profile page'''
     customer = models.Customer.objects.all().filter(pk=customer_id)
-    customer_vehicles = managers.AllVehicles.all_vehicles.filter(
-        customer=customer[0]
-    )
+    customer_vehicles = managers.AllVehicles.all_vehicles.filter(customer=customer[0])
     return render(
         request,
         'bhs_app/view_customer_profile.html',
