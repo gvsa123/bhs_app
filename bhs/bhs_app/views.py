@@ -1,4 +1,3 @@
-import re
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -35,8 +34,13 @@ def create_new_vehicle(request, customer_id):
     TODO:
     -   populate form with initial={'customer': customer_obj}
     '''
+    # get customer
+    current_customer = managers.AllCustomers.all_customers.filter(pk=customer_id)
+
     if request.method == 'POST':
         form_vehicle = VehicleForm(request.POST)
+        form_vehicle.instance.customer = current_customer[0]
+
         if form_vehicle.is_valid():
             form_vehicle.save(commit=True)
             return HttpResponseRedirect('/thanks/')
