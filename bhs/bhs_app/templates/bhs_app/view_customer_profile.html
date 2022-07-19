@@ -23,7 +23,7 @@
     </tr>
     {% endfor %}
 </table>
-<h2> Vehicles</h2>
+<h2> Registered Vehicles</h2>
 <table>
     <tr>
         <th>VIN</th>
@@ -34,15 +34,17 @@
     </tr>
     {% for vehicle in data_vehicle%}
     <tr>
-        <td> {{ vehicle.vin}}</td>
-        <td> {{ vehicle.year}}</td>
-        <td> {{ vehicle.make}}</td>
-        <td> {{ vehicle.model}}</td>
-        <td> {{ vehicle.mileage}}</td>
+        <td><a href="{{ 'view_vehicle_info' }}/{{ vehicle.vin}}/">{{ vehicle.vin}}</a></td>
+        <td><a href="{{ 'view_vehicle_info' }}/{{ vehicle.vin}}/">{{ vehicle.year}}</a></td>
+        <td><a href="{{ 'view_vehicle_info' }}/{{ vehicle.vin}}/">{{ vehicle.make}}</a></td>
+        <td><a href="{{ 'view_vehicle_info' }}/{{ vehicle.vin}}/">{{ vehicle.model}}</a></td>
+        <td><a href="{{ 'view_vehicle_info' }}/{{ vehicle.vin}}/">{{ vehicle.mileage}}</a></td>
     </tr>
     {% endfor %}
-</table>
-<p><a href="{{ 'create_new_vehicle' }}/">Add Vehicle</a></p>
-<p><a href="{{ 'create_new_repair_order' }}/">Add Repair Order</a></p>
-<p><a href="{{ 'create_new_comment' }}/">Add Comment</a></p>
+</table><br>
+
+
+<a href="{{ 'create_new_vehicle' }}/">Add Vehicle</a>
+<a href="{{ 'create_new_repair_order' }}/">Add Repair Order</a>
+<a href="{{ 'create_new_comment' }}/">Add Comment</a>
 {% endblock %}
