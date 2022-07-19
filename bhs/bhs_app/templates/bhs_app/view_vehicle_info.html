@@ -1,0 +1,25 @@
+{% extends 'bhs_app/base.html' %}
+
+{% block content %}
+
+<h2>{{ customer_first_name.first_name }} {{ customer_first_name.last_name }}'s Vehicle Information</h2>
+<table>
+    <tr>
+        <th>Year</th>
+        <th>Make</th>
+        <th>Model</th>
+        <th>Mileage</th>
+        <th>VIN</th>
+    </tr>
+    {% for vehicle in data_vehicle%}
+    <tr>
+        <td><a href="{{ 'view_vehicle_info' }}/{{ vehicle.vin}}/">{{ vehicle.year}}</a></td>
+        <td><a href="{{ 'view_vehicle_info' }}/{{ vehicle.vin}}/">{{ vehicle.make}}</a></td>
+        <td><a href="{{ 'view_vehicle_info' }}/{{ vehicle.vin}}/">{{ vehicle.model}}</a></td>
+        <td><a href="{{ 'view_vehicle_info' }}/{{ vehicle.vin}}/">{{ vehicle.mileage}}</a></td>
+        <td><a href="{{ 'view_vehicle_info' }}/{{ vehicle.vin}}/">{{ vehicle.vin}}</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

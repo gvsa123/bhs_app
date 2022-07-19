@@ -167,14 +167,15 @@ def view_vehicle_info(request, customer_id, vehicle_vin):
     
     customer = models.Customer.objects.all().filter(pk=customer_id)
     vehicle = managers.AllVehicles.all_vehicles.filter(vin=vehicle_vin)
-    
+
     return render(
         request,
         'bhs_app/view_vehicle_info.html',
         {
+            'customer_id': customer_id,
+            'customer_first_name': customer[0],
             'data_customer': customer,
             'data_vehicle': vehicle,
-            'customer_id': customer_id,
             'vehicle_vin': vehicle_vin
         }
     )
