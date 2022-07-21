@@ -138,3 +138,5 @@ bhs/bhs_app/__pycache__/views.cpython-38.pyc
 
 # Ignore database
 /bhs/bhs_auto
+.vscode/settings.json
+requirements_old.txt
