@@ -18,28 +18,27 @@
         <td> {{ data_customer.email }} </td>
         <td> {{ data_customer.address }} </td>
     </tr>
-    {% endfor %}
 </table>
 <h2> Registered Vehicles</h2>
 {% if empty != True %}
-<table>
-    <tr>
-        <th>VIN</th>
-        <th>Year</th>
-        <th>Make</th>
-        <th>Model</th>
-        <th>Mileage</th>
-    </tr>
-    {% for vehicle in data_vehicle%}
-    <tr>
-        <td><a href="{{ 'view_vehicle_info' }}/{{ vehicle.vin}}/">{{ vehicle.vin}}</a></td>
-        <td><a href="{{ 'view_vehicle_info' }}/{{ vehicle.vin}}/">{{ vehicle.year}}</a></td>
-        <td><a href="{{ 'view_vehicle_info' }}/{{ vehicle.vin}}/">{{ vehicle.make}}</a></td>
-        <td><a href="{{ 'view_vehicle_info' }}/{{ vehicle.vin}}/">{{ vehicle.model}}</a></td>
-        <td><a href="{{ 'view_vehicle_info' }}/{{ vehicle.vin}}/">{{ vehicle.mileage}}</a></td>
-    </tr>
-    {% endfor %}
-</table><br>
+    <table>
+        <tr>
+            <th>VIN</th>
+            <th>Year</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Mileage</th>
+        </tr>
+        {% for vehicle in data_vehicle%}
+        <tr>
+            <td><a href="{{ 'view_vehicle_info' }}/{{ vehicle.vin}}/">{{ vehicle.vin}}</a></td>
+            <td><a href="{{ 'view_vehicle_info' }}/{{ vehicle.vin}}/">{{ vehicle.year}}</a></td>
+            <td><a href="{{ 'view_vehicle_info' }}/{{ vehicle.vin}}/">{{ vehicle.make}}</a></td>
+            <td><a href="{{ 'view_vehicle_info' }}/{{ vehicle.vin}}/">{{ vehicle.model}}</a></td>
+            <td><a href="{{ 'view_vehicle_info' }}/{{ vehicle.vin}}/">{{ vehicle.mileage}}</a></td>
+        </tr>
+        {% endfor %}
+    </table><br>
 {% else %}
     <p>No registered vehicles</p>
 {% endif %}

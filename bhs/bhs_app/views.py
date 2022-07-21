@@ -86,7 +86,7 @@ def create_new_repair_order(request, customer_id):
         form_repair_order = RepairOrderForm()
     return render(
         request, 'bhs_app/create_new_repair_order.html',
-        {'form_repair_order': form_repair_order,'data': current_customer}
+        {'form_repair_order': form_repair_order, 'data': current_customer}
     )
 
 
@@ -107,7 +107,7 @@ def create_new_comment(request, customer_id):
         form_comment = CommentsForm()
     return render(
         request, 'bhs_app/create_new_comment.html',
-        {'form_comment': form_comment,'data': customer}
+        {'form_comment': form_comment, 'data': customer}
     )
 
 
@@ -124,10 +124,12 @@ def search(request):
     '''
     if request.method == 'GET':
         q = request.GET.get('q')
-        if q == None:
+        if q is None:
             data = None
         else:
-            data = models.Customer.objects.all().filter(phone_number__icontains=q)
+            data = models.Customer.objects.all().filter(
+                phone_number__icontains=q
+            )
     return render(request, 'bhs_app/search.html', {'data': data})
 
 
@@ -139,14 +141,17 @@ def view_customers(request):
     '''
 
     all_customer_data = managers.AllCustomers.all_customers
-    return render(request, 'bhs_app/view_customers.html',
-                 {'data': list(all_customer_data)})
+    return render(
+        request,
+        'bhs_app/view_customers.html',
+        {'data': list(all_customer_data)}
+    )
 
 
 @login_required(login_url='login')
 def view_customer_profile(request, customer_id):
     '''Display customer profile page'''
-    
+
     # redudant among functions; move to function
     customer = models.Customer.objects.all().filter(pk=customer_id)
     customer_vehicles = managers.AllVehicles.all_vehicles.filter(customer=customer[0])
@@ -171,7 +176,7 @@ def view_customer_profile(request, customer_id):
 @login_required(login_url='login')
 def view_vehicle_info(request, customer_id, vehicle_vin):
     """Display vehicle information and asssociated repair orders"""
-    
+ 
     customer = models.Customer.objects.all().filter(pk=customer_id)
     vehicle = managers.AllVehicles.all_vehicles.filter(vin=vehicle_vin)
 
