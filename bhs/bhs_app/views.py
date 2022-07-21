@@ -150,6 +150,11 @@ def view_customer_profile(request, customer_id):
     # redudant among functions; move to function
     customer = models.Customer.objects.all().filter(pk=customer_id)
     customer_vehicles = managers.AllVehicles.all_vehicles.filter(customer=customer[0])
+    empty = False
+
+    if not bool(customer_vehicles):
+        empty = True
+
 
     return render(
         request,
@@ -158,8 +163,7 @@ def view_customer_profile(request, customer_id):
             'customer_id': customer_id,
             'data_customer': json.loads(serializers.serialize("jsonl", customer))["fields"],
             'data_vehicle': customer_vehicles,
-            'customer_id': customer_id,
-            # 'vehicle_vin': vehicle_vin
+            'empty': empty
         }
     )
 

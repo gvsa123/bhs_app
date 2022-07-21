@@ -21,6 +21,7 @@
     {% endfor %}
 </table>
 <h2> Registered Vehicles</h2>
+{% if empty != True %}
 <table>
     <tr>
         <th>VIN</th>
@@ -39,6 +40,10 @@
     </tr>
     {% endfor %}
 </table><br>
+{% else %}
+    <p>No registered vehicles</p>
+{% endif %}
+
 
 
 <a href="{{ 'create_new_vehicle' }}/">Add Vehicle</a>
