@@ -19,8 +19,8 @@ class VehicleForm(ModelForm):
 class RepairOrderForm(ModelForm):
     class Meta:
         model = models.RepairOrder
-        fields = '__all__'
-        # exclude = ['customer']
+        # fields = '__all__'
+        exclude = ['customer', 'vehicle']
         # fields = ['ro','date','completed']
 
 class CommentsForm(ModelForm):

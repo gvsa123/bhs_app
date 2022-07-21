@@ -1,7 +1,7 @@
 import json
 from django.core import serializers
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
 from .forms import CustomerForm, VehicleForm, RepairOrderForm, CommentsForm
@@ -160,7 +160,6 @@ def view_customer_profile(request, customer_id):
     if not bool(customer_vehicles):
         empty = True
 
-
     return render(
         request,
         'bhs_app/view_customer_profile.html',
@@ -175,10 +174,13 @@ def view_customer_profile(request, customer_id):
 
 @login_required(login_url='login')
 def view_vehicle_info(request, customer_id, vehicle_vin):
-    """Display vehicle information and asssociated repair orders"""
+    """Displays basic vehicle information and number of associated repair orders."""
  
     customer = models.Customer.objects.all().filter(pk=customer_id)
     vehicle = managers.AllVehicles.all_vehicles.filter(vin=vehicle_vin)
+    repair_orders = managers.AllRepairOrders.all_repair_orders.filter(vin=vehicle_vin)
+
+    print(repair_orders)
 
     return render(
         request,
@@ -188,6 +190,19 @@ def view_vehicle_info(request, customer_id, vehicle_vin):
             'vehicle_vin': vehicle_vin,
             'data_customer': json.loads(serializers.serialize("jsonl", customer))["fields"],
             'data_vehicle': json.loads(serializers.serialize("jsonl", vehicle))["fields"],
+        }
+    )
+
+@login_required(login_url='login')
+def view_repair_order(request, customer_id, vehicle_vin):
+    """Displays repair orders details associated with current vehicle."""
+    
+    return render(
+        request,
+        'bhs_app/view_repair_order_info.html',
+        {
+            'customer_id': customer_id,
+            'vehicle_vin': vehicle_vin,
         }
     )
 
