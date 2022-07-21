@@ -1,3 +1,5 @@
+import json
+from django.core import serializers
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -153,7 +155,8 @@ def view_customer_profile(request, customer_id):
         request,
         'bhs_app/view_customer_profile.html',
         {
-            'data_customer': customer,
+            'customer_id': customer_id,
+            'data_customer': json.loads(serializers.serialize("jsonl", customer))["fields"],
             'data_vehicle': customer_vehicles,
             'customer_id': customer_id,
             # 'vehicle_vin': vehicle_vin
@@ -173,10 +176,9 @@ def view_vehicle_info(request, customer_id, vehicle_vin):
         'bhs_app/view_vehicle_info.html',
         {
             'customer_id': customer_id,
-            'customer_first_name': customer[0],
-            'data_customer': customer,
-            'data_vehicle': vehicle,
-            'vehicle_vin': vehicle_vin
+            'vehicle_vin': vehicle_vin,
+            'data_customer': json.loads(serializers.serialize("jsonl", customer))["fields"],
+            'data_vehicle': json.loads(serializers.serialize("jsonl", vehicle))["fields"],
         }
     )
 

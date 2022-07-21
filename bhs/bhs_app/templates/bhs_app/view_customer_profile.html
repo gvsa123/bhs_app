@@ -5,21 +5,18 @@
 <h2> Customer Profile </h2>
 <table>
     <tr>
-        <th>ID</th>
         <th>First Name</th>
         <th>Last Name</th>
         <th>Phone Number</th>
         <th>Email</th>
         <th>Address</th>
     </tr>
-    {% for customer in data_customer %}
     <tr>
-        <td> {{ customer.customer }} </td>
-        <td> {{ customer.first_name }} </td>
-        <td> {{ customer.last_name }} </td>
-        <td> {{ customer.phone_number }} </td>
-        <td> {{ customer.email }} </td>
-        <td> {{ customer.address }} </td>
+        <td> {{ data_customer.first_name }} </td>
+        <td> {{ data_customer.last_name }} </td>
+        <td> {{ data_customer.phone_number }} </td>
+        <td> {{ data_customer.email }} </td>
+        <td> {{ data_customer.address }} </td>
     </tr>
     {% endfor %}
 </table>
