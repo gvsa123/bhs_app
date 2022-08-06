@@ -214,6 +214,7 @@ def view_repair_order(request, customer_id, vehicle_vin, ro_num):
         {
             'customer_id': customer_id,
             'vehicle_vin': vehicle_vin,
+            'ro_num': ro_num,
             'data_customer': json.loads(serializers.serialize("jsonl", customer))["fields"],
             'data_vehicle': json.loads(serializers.serialize("jsonl", vehicle))["fields"],
             'data_repair_order': json.loads(serializers.serialize("jsonl", repair_order))["fields"],
