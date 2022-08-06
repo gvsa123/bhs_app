@@ -7,7 +7,7 @@ from . import models
 class CustomerForm(ModelForm):
     class Meta:
         model = models.Customer
-        # fields = '__all__'
+        fields = '__all__'
         # fields = ['first_name', 'last_name', 'phone_number', 'email', 'address']
 
 
