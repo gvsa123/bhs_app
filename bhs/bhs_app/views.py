@@ -63,39 +63,40 @@ def create_new_vehicle(request, customer_id):
 
 
 @login_required(login_url='login')
-def create_new_repair_order(request, customer_id):
-    '''Create a repair order
+def create_new_repair_order(request, customer_id, vehicle_vin):
+    """Create a repair order
     TODO:
-    -   generate list of vins associated with customer_id and limit choices
-        in RepairOrder
-    '''
-    current_customer = models.Customer.objects.all().filter(pk=customer_id)
-    current_vehicles = managers.AllVehicles.all_vehicles.values()
-    list_of_owned_vehicles = []
-
-    for _ in current_vehicles:
-        if _['customer_id'] == customer_id:
-            list_of_owned_vehicles.append(_)
+    - pre-populate customer and vin; remove from form
+    - create try block and handle data exceptions after 
+      form validation
+    """
+    customer = models.Customer.objects.all().filter(pk=customer_id)  # Does it matter if model vs manager?
+    vehicle = models.Vehicle.objects.all().filter(vin=vehicle_vin)
 
     if request.method == 'POST':
         form_repair_order = RepairOrderForm(request.POST)
+        form_repair_order.instance.customer = customer[0]
+        form_repair_order.instance.vehicle = vehicle[0]
+
         if form_repair_order.is_valid():
             form_repair_order.save(commit=True)
             return HttpResponseRedirect('/thanks/')
     else:
         form_repair_order = RepairOrderForm()
+
     return render(
         request, 'bhs_app/create_new_repair_order.html',
-        {'form_repair_order': form_repair_order, 'data': current_customer}
+        {
+            'form_repair_order': form_repair_order,
+            'data_customer': json.loads(serializers.serialize("jsonl", customer))["fields"],
+            'data_vehicle': json.loads(serializers.serialize("jsonl", vehicle))["fields"],
+        }
     )
 
 
 @login_required(login_url='login')
 def create_new_comment(request, customer_id):
-    '''Create a comment.
-    TODO:
-    - fix -> NOT NULL constraint customer_id
-    '''
+    '''Create a comment'''
     customer = models.Customer.objects.all().filter(pk=customer_id)
 
     if request.method == 'POST':
@@ -197,16 +198,25 @@ def view_vehicle_info(request, customer_id, vehicle_vin):
         }
     )
 
+
 @login_required(login_url='login')
-def view_repair_order(request, customer_id, vehicle_vin):
+def view_repair_order(request, customer_id, vehicle_vin, ro_num):
     """Displays repair orders details associated with current vehicle."""
-    
+    customer = models.Customer.objects.all().filter(pk=customer_id)
+    vehicle = models.Vehicle.objects.all().filter(vin=vehicle_vin)
+    repair_order = models.RepairOrder.objects.all().filter(ro=ro_num)
+
+    print(dir(repair_order[0]))
+
     return render(
         request,
         'bhs_app/view_repair_order_info.html',
         {
             'customer_id': customer_id,
             'vehicle_vin': vehicle_vin,
+            'data_customer': json.loads(serializers.serialize("jsonl", customer))["fields"],
+            'data_vehicle': json.loads(serializers.serialize("jsonl", vehicle))["fields"],
+            'data_repair_order': json.loads(serializers.serialize("jsonl", repair_order))["fields"],
         }
     )
 

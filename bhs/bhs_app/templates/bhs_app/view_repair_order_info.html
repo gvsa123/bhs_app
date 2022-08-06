@@ -19,5 +19,29 @@
         <td>{{ data_vehicle.vin}}</td>
     </tr>
 </table>
+<h2>Repair Order: {{ data_repair_order.ro }} {{ data_repair_order.date }}</h2>
+{% if empty != True %}
+    <table>
+        <tr>
+            <th>Date Created</th>
+            <th>Repair Order Number</th>
+            <th>Completed</th>
+        </tr>
+        <tr>
+            <td>{{ data_repair_order.date }}</td>
+            <td>{{ data_repair_order. }}</td>
+            <td>{{ data_repair_order.completed }}</td>
+        </tr>
+    </table>
 
+<p>{{ customer_id }}</p>
+<p>{{ vehicle_vin }}</p>
+<p>{{ data_customer }}</p>
+<p>{{ data_vehicle }}</p>
+<p>{{ data_repair_order }}</p>
+{% else %}
+    <p>No repair orders for vehicle</p>
+{% endif %}
+<!-- <a href="{{ 'create_new_repair_order' }}/">Add Repair Order</a> -->
+<a href="{{ 'create_new_comment' }}/">Add Comment</a>
 {% endblock %}
