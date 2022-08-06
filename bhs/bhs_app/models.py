@@ -121,8 +121,8 @@ class RepairOrder(models.Model):
     '''Unique repair order'''
 
     ro = models.BigAutoField(primary_key=True)
-    customer = models.ForeignKey('Customer', on_delete=models.RESTRICT) #models.OneToOneField(Customer, blank=True, on_delete=models.PROTECT)
-    vin = models.ForeignKey('Vehicle', on_delete=models.RESTRICT, null=True) #models.OneToOneField(Customer, blank=True, on_delete=models.PROTECT)
+    customer = models.ForeignKey('Customer', on_delete=models.RESTRICT, to_field='customer')
+    vin = models.ForeignKey('Vehicle', on_delete=models.RESTRICT, null=True, to_field='vin')
     date_created = models.DateField(default=date.today, blank=False, null=False)
     completed = models.BooleanField(default=False)
 
@@ -136,6 +136,6 @@ class Comments(models.Model):
     -   Add other features -> error codes, job description, etc.
     '''
 
-    ro = models.ForeignKey('RepairOrder', on_delete=models.PROTECT, null=True)
+    ro = models.ForeignKey('RepairOrder', on_delete=models.PROTECT, null=True, to_field='ro')
     date_modified = models.DateField(default=date.today, blank=False, null=False)
     comment = models.TextField()
