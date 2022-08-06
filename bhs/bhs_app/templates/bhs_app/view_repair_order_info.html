@@ -19,7 +19,8 @@
         <td>{{ data_vehicle.vin}}</td>
     </tr>
 </table>
-<h2>Repair Order: {{ data_repair_order.ro }} {{ data_repair_order.date }}</h2>
+<h2>Repair Order: {{ ro_num }}</h2>
+<p>Date Created: {{ data_repair_order.date_created }}</p>
 {% if empty != True %}
     <table>
         <tr>
@@ -27,18 +28,14 @@
             <th>Repair Order Number</th>
             <th>Completed</th>
         </tr>
+        {% for ro in data_repair_order %}
         <tr>
-            <td>{{ data_repair_order.date }}</td>
-            <td>{{ data_repair_order. }}</td>
-            <td>{{ data_repair_order.completed }}</td>
+            <td>{{ ro.date_created }}</td>
+            <td>{{ ro.ro }}</td>
+            <td>{{ ro.completed }}</td>
         </tr>
+        {% endfor %}
     </table>
-
-<p>{{ customer_id }}</p>
-<p>{{ vehicle_vin }}</p>
-<p>{{ data_customer }}</p>
-<p>{{ data_vehicle }}</p>
-<p>{{ data_repair_order }}</p>
 {% else %}
     <p>No repair orders for vehicle</p>
 {% endif %}
