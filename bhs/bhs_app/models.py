@@ -8,8 +8,10 @@ from datetime import date
 
 '''
 TODO:
--   format admin page output; modelAdmin.field
+-   format admin page output; modelAdmin.field.
+-   refactor model class __str__ methods.
 '''
+
 
 class Customer(models.Model):
     '''Basic customer information.'''
@@ -24,6 +26,7 @@ class Customer(models.Model):
     def __str__(self) -> str:
         fullname = self.last_name + ', ' + self.first_name
         return fullname
+
 
 class Vehicle(models.Model):
     '''Relevant vehicle information
@@ -102,7 +105,7 @@ class Vehicle(models.Model):
         ("Volkswagen", "Volkswagen"),
         ("Volvo", "Volvo")
     ]
-    
+
     vin = models.CharField(unique=True, max_length=17)
     customer = models.ForeignKey('Customer', on_delete=models.RESTRICT)
     year = models.PositiveSmallIntegerField(choices=YEARS, default=YTD)
@@ -113,24 +116,26 @@ class Vehicle(models.Model):
     def __str__(self) -> str:
         return self.vin
 
+
 class RepairOrder(models.Model):
     '''Unique repair order'''
 
     ro = models.BigAutoField(primary_key=True)
     customer = models.ForeignKey('Customer', on_delete=models.RESTRICT) #models.OneToOneField(Customer, blank=True, on_delete=models.PROTECT)
     vin = models.ForeignKey('Vehicle', on_delete=models.RESTRICT, null=True) #models.OneToOneField(Customer, blank=True, on_delete=models.PROTECT)
-    date = models.DateField(default=date.today, blank=False, null=False)
+    date_created = models.DateField(default=date.today, blank=False, null=False)
     completed = models.BooleanField(default=False)
 
     def __str__(self) -> str:
-        return self.ro
+        return f"{self.ro}"
+
 
 class Comments(models.Model):
     '''Comments table associated with repair order
     TODO:
-    - add ro_num with 1-to-1 from RepairOrder class
+    -   Add other features -> error codes, job description, etc.
     '''
-    
+
     ro = models.ForeignKey('RepairOrder', on_delete=models.PROTECT, null=True)
-    date = models.DateField(default=date.today, blank=False, null=False)
+    date_modified = models.DateField(default=date.today, blank=False, null=False)
     comment = models.TextField()
