@@ -1,0 +1,50 @@
+[
+    {
+        "model": "bhs_app.vehicle",
+        "pk": 1,
+        "fields": {
+            "customer" : 2,
+            "vin" : "JH4DA1745GS002661",
+            "year" : "1986",
+            "make" : "Acura",
+            "model" : "Integra",
+            "mileage" : 188945
+        }
+    },
+    {
+        "model": "bhs_app.vehicle",
+        "pk": 2,
+        "fields": {
+            "customer" : 3,
+            "vin" : "1FAHP3FNXAW231964",
+            "year" : "2010",
+            "make" : "Ford",
+            "model" : "Focus",
+            "mileage" : 98332
+        }
+    },
+    {
+        "model": "bhs_app.vehicle",
+        "pk": 3,
+        "fields": {
+            "customer" : 3,
+            "vin" : "WBAGH83401DP17574",
+            "year" : "2001",
+            "make" : "BMW",
+            "model" : "7 Series",
+            "mileage" : 235776
+        }
+    },
+    {
+        "model": "bhs_app.vehicle",
+        "pk": 4,
+        "fields": {
+            "customer" : 3,
+            "vin" : "3LNHL2JC5CR800713",
+            "year" : "2012",
+            "make" : "Ford",
+            "model" : "MKZ",
+            "mileage" : 57883
+        }
+    }
+]

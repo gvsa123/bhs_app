@@ -1,0 +1,26 @@
+[
+    {
+        "model": "bhs_app.comments",
+        "pk": 1,
+        "fields": {
+            "ro": 2,
+            "comment": "This is comment 1"
+        }
+    },
+    {
+        "model": "bhs_app.comments",
+        "pk": 2,
+        "fields": {
+            "ro": 2,
+            "comment": "This is comment 2"
+        }
+    },
+    {
+        "model": "bhs_app.comments",
+        "pk": 2,
+        "fields": {
+            "ro": 3,
+            "comment": "This is comment 3"
+        }
+    }
+]
