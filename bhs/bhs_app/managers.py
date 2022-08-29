@@ -15,5 +15,10 @@ class AllVehicles(models.Vehicle):
 
 
 class AllRepairOrders(models.RepairOrder):
-    """Returns all repair orders in system."""
+    """Returns all repair orders."""
     all_repair_orders = models.RepairOrder.objects.all()
+
+
+class AllComments(models.Comments):
+    """Returns all comments"""
+    all_comments = models.Comments.objects.all()

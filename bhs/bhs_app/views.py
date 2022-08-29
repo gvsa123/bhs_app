@@ -201,12 +201,18 @@ def view_vehicle_info(request, customer_id, vehicle_vin):
 
 @login_required(login_url='login')
 def view_repair_order(request, customer_id, vehicle_vin, ro_num):
-    """Displays repair orders details associated with current vehicle."""
+    """Displays repair orders details associated with current vehicle.
+    TODO:
+    -  Display info in table rows
+    """
     customer = models.Customer.objects.all().filter(pk=customer_id)
     vehicle = models.Vehicle.objects.all().filter(vin=vehicle_vin)
     repair_order = models.RepairOrder.objects.all().filter(ro=ro_num)
+    ro_comments = models.Comments.objects.all().filter(ro=ro_num)
+    empty = False
 
-    print(dir(repair_order[0]))
+    if not bool(ro_comments):
+        empty = True
 
     return render(
         request,
@@ -218,6 +224,8 @@ def view_repair_order(request, customer_id, vehicle_vin, ro_num):
             'data_customer': json.loads(serializers.serialize("jsonl", customer))["fields"],
             'data_vehicle': json.loads(serializers.serialize("jsonl", vehicle))["fields"],
             'data_repair_order': json.loads(serializers.serialize("jsonl", repair_order))["fields"],
+            'data_ro_comments': ro_comments, #  No need to serialize QuerySets with len > 1.
+            "empty": empty
         }
     )
 

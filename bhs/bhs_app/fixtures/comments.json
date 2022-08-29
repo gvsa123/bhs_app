@@ -17,7 +17,7 @@
     },
     {
         "model": "bhs_app.comments",
-        "pk": 2,
+        "pk": 3,
         "fields": {
             "ro": 3,
             "comment": "This is comment 3"

@@ -26,19 +26,18 @@
         <tr>
             <th>Date Created</th>
             <th>Repair Order Number</th>
-            <th>Completed</th>
+            <th>Comment</th>
         </tr>
-        {% for ro in data_repair_order %}
+        {% for comment in data_ro_comments %}
         <tr>
-            <td>{{ ro.date_created }}</td>
-            <td>{{ ro.ro }}</td>
-            <td>{{ ro.completed }}</td>
+            <td>{{ comment.date_modified }}</td>
+            <td>{{ comment.ro }}</td>
+            <td>{{ comment.comment }}</td>
         </tr>
         {% endfor %}
     </table>
 {% else %}
     <p>No repair orders for vehicle</p>
 {% endif %}
-<!-- <a href="{{ 'create_new_repair_order' }}/">Add Repair Order</a> -->
 <a href="{{ 'create_new_comment' }}/">Add Comment</a>
 {% endblock %}
