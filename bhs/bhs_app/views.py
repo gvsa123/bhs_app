@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
 from .forms import CustomerForm, VehicleForm, RepairOrderForm, CommentsForm
+
 from . import models
 from . import managers
 
@@ -64,19 +65,15 @@ def create_new_vehicle(request, customer_id):
 
 @login_required(login_url='login')
 def create_new_repair_order(request, customer_id, vehicle_vin):
-    """Create a repair order
-    TODO:
-    - pre-populate customer and vin; remove from form
-    - create try block and handle data exceptions after 
-      form validation
-    """
-    customer = models.Customer.objects.all().filter(pk=customer_id)  # Does it matter if model vs manager?
+    """Create a repair order"""
+    customer = models.Customer.objects.all().filter(pk=customer_id)
     vehicle = models.Vehicle.objects.all().filter(vin=vehicle_vin)
 
     if request.method == 'POST':
         form_repair_order = RepairOrderForm(request.POST)
+
         form_repair_order.instance.customer = customer[0]
-        form_repair_order.instance.vehicle = vehicle[0]
+        form_repair_order.instance.vin = vehicle[0]
 
         if form_repair_order.is_valid():
             form_repair_order.save(commit=True)
@@ -95,12 +92,15 @@ def create_new_repair_order(request, customer_id, vehicle_vin):
 
 
 @login_required(login_url='login')
-def create_new_comment(request, customer_id):
-    '''Create a comment'''
+def create_new_comment(request, customer_id, vehicle_vin, ro_num):
+    """Create a comment"""
     customer = models.Customer.objects.all().filter(pk=customer_id)
+    current_ro = models.RepairOrder.objects.filter(ro=ro_num)
 
     if request.method == 'POST':
         form_comment = CommentsForm(request.POST)
+        form_comment.instance.ro = current_ro[0]
+
         if form_comment.is_valid():
             form_comment.save(commit=True)
             return HttpResponseRedirect('/thanks/')
@@ -108,7 +108,7 @@ def create_new_comment(request, customer_id):
         form_comment = CommentsForm()
     return render(
         request, 'bhs_app/create_new_comment.html',
-        {'form_comment': form_comment, 'data': customer}
+        {'form_comment': form_comment, 'data': [customer, vehicle_vin, ro_num]}
     )
 
 

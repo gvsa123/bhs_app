@@ -31,5 +31,5 @@ class CommentsForm(ModelForm):
     class Meta:
         model = models.Comments
         # fields = '__all__'
-        exclude = ['date_modified']
+        exclude = ['date_modified', 'ro']
         # fields = ['date', 'comment']
