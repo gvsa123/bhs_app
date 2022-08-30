@@ -20,8 +20,7 @@ def login(request):
 
 @login_required(login_url='login')
 def create_new_customer(request):
-    '''Creae a new customer'''
-
+    """Create a new customer"""
     if request.method == 'POST':
         form_customer = CustomerForm(request.POST)
 
@@ -40,11 +39,7 @@ def create_new_customer(request):
 
 @login_required(login_url='login')
 def create_new_vehicle(request, customer_id):
-    '''Create a new vehicle
-    TODO:
-    -   populate form with initial={'customer': customer_obj}
-    '''
-    # get customer
+    """Create a new vehicle"""
     current_customer = managers.AllCustomers.all_customers.filter(pk=customer_id)
 
     if request.method == 'POST':
@@ -114,15 +109,12 @@ def create_new_comment(request, customer_id, vehicle_vin, ro_num):
 
 @login_required(login_url='login')
 def search(request):
-    '''Search the database
+    """Search the database
     TODO:
     - default outputs all() due to managers.py; maybe output max 10 sorted by
     created recently?
     - catch non-GET request method and throw error? for security? how? why?
-
-    BUG:
-    - view_customer_profile link breaks when coming from search/
-    '''
+    """
     if request.method == 'GET':
         q = request.GET.get('q')
         if q is None:
@@ -152,8 +144,6 @@ def view_customers(request):
 @login_required(login_url='login')
 def view_customer_profile(request, customer_id):
     '''Display customer profile page'''
-
-    # redudant among functions; move to function
     customer = models.Customer.objects.all().filter(pk=customer_id)
     customer_vehicles = managers.AllVehicles.all_vehicles.filter(customer=customer[0])
     empty = False
@@ -176,7 +166,6 @@ def view_customer_profile(request, customer_id):
 @login_required(login_url='login')
 def view_vehicle_info(request, customer_id, vehicle_vin):
     """Displays basic vehicle information and number of associated repair orders."""
-
     customer = models.Customer.objects.all().filter(pk=customer_id)
     vehicle = models.Vehicle.objects.all().filter(vin=vehicle_vin)
     vehicle_repair_orders = managers.AllRepairOrders.all_repair_orders.filter(vin=vehicle[0])
@@ -201,10 +190,7 @@ def view_vehicle_info(request, customer_id, vehicle_vin):
 
 @login_required(login_url='login')
 def view_repair_order(request, customer_id, vehicle_vin, ro_num):
-    """Displays repair orders details associated with current vehicle.
-    TODO:
-    -  Display info in table rows
-    """
+    """Displays repair orders details associated with current vehicle."""
     customer = models.Customer.objects.all().filter(pk=customer_id)
     vehicle = models.Vehicle.objects.all().filter(vin=vehicle_vin)
     repair_order = models.RepairOrder.objects.all().filter(ro=ro_num)
@@ -224,7 +210,7 @@ def view_repair_order(request, customer_id, vehicle_vin, ro_num):
             'data_customer': json.loads(serializers.serialize("jsonl", customer))["fields"],
             'data_vehicle': json.loads(serializers.serialize("jsonl", vehicle))["fields"],
             'data_repair_order': json.loads(serializers.serialize("jsonl", repair_order))["fields"],
-            'data_ro_comments': ro_comments, #  No need to serialize QuerySets with len > 1.
+            'data_ro_comments': ro_comments,  # No need to serialize QuerySets with len > 1.
             "empty": empty
         }
     )
@@ -232,4 +218,5 @@ def view_repair_order(request, customer_id, vehicle_vin, ro_num):
 
 @login_required(login_url='login')
 def thanks(request):
+    """Confirmation message."""
     return render(request, 'bhs_app/thanks.html')
