@@ -1,20 +1,14 @@
-# import datetime
-# from datetime import datetime
-# from distutils.archive_util import make_archive
-# from pyexpat import model
-# from tkinter import CASCADE
 from django.db import models
 from datetime import date
-
-'''
+"""
 TODO:
 -   format admin page output; modelAdmin.field.
 -   refactor model class __str__ methods.
-'''
+"""
 
 
 class Customer(models.Model):
-    '''Basic customer information.'''
+    """Basic customer information."""
 
     customer = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=30)
@@ -29,12 +23,13 @@ class Customer(models.Model):
 
 
 class Vehicle(models.Model):
-    '''Relevant vehicle information
+    """Relevant vehicle information
     TODO:
     -   check https://www.back4app.com/database/how-it-works;
         create model dictionary OR use api?
+    -   Get list of models by make
 
-    '''
+    """
     YTD = date.today().year + 1
     YEARS = [(yr, yr) for yr in range(1980, YTD, 1)]
 
@@ -135,7 +130,7 @@ class Comments(models.Model):
     more work order / comments details as you wish.
 
     TODO:
-    - change name
+    -   Change name
     """
     ro = models.ForeignKey('RepairOrder', on_delete=models.PROTECT, null=True, to_field='ro')
     date_modified = models.DateField(default=date.today, blank=False, null=False)
