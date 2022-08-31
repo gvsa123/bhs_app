@@ -25,13 +25,17 @@
     <table>
         <tr>
             <th>Date Created</th>
-            <th>Repair Order Number</th>
+            <th>Job Description</th>
+            <th>Error Codes</th>
+            <th>Amount Total</th>
             <th>Comment</th>
         </tr>
         {% for comment in data_ro_comments %}
         <tr>
             <td>{{ comment.date_modified }}</td>
-            <td>{{ comment.ro }}</td>
+            <td>{{ comment.job_description }}</td>
+            <td>{{ comment.error_codes }}</td>
+            <td>{{ comment.amount_total }}</td>
             <td>{{ comment.comment }}</td>
         </tr>
         {% endfor %}

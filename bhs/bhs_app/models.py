@@ -118,8 +118,7 @@ class Vehicle(models.Model):
 
 
 class RepairOrder(models.Model):
-    '''Unique repair order'''
-
+    """Unique repair order"""
     ro = models.BigAutoField(primary_key=True)
     customer = models.ForeignKey('Customer', on_delete=models.RESTRICT, to_field='customer')
     vin = models.ForeignKey('Vehicle', on_delete=models.RESTRICT, null=True, to_field='vin')
@@ -131,11 +130,16 @@ class RepairOrder(models.Model):
 
 
 class Comments(models.Model):
-    '''Comments table associated with repair order
-    TODO:
-    -   Add other features -> error codes, job description, etc.
-    '''
+    """
+    Comments table associated with repair order. Add
+    more work order / comments details as you wish.
 
+    TODO:
+    - change name
+    """
     ro = models.ForeignKey('RepairOrder', on_delete=models.PROTECT, null=True, to_field='ro')
     date_modified = models.DateField(default=date.today, blank=False, null=False)
     comment = models.TextField()
+    job_description = models.TextField(max_length=50, help_text="Short description. One entry per job.")
+    error_codes = models.TextField(max_length=5)  # Create list with description
+    amount_total = models.DecimalField(default=None, max_digits=6, decimal_places=2)
