@@ -5,12 +5,15 @@ import requests
 
 
 class URLPatternTest(TestCase):
-    '''Test all url patterns return 200. Server has to be running.'''
+    """Test url patterns. Server has to be running."""
     def test_all_urls(self) -> None:
+        """Check urls return 200. """
         app_urls = [url for url in urls.urlpatterns]
         host = 'http://127.0.0.1:8000/'
+        urls_checked = 0
 
         for link in app_urls:
+            urls_checked += 1
             temp_url = host+str(link.pattern)
             r = requests.get(temp_url)
 
@@ -46,3 +49,8 @@ class URLPatternTest(TestCase):
                 r = requests.get(f_url[0])
                 self.assertEqual(r.status_code, 200)
                 print(f"{f_url[0]} ---> {r.status_code} {r.reason}")
+
+        print(f"\nNumber of urls checked: {urls_checked}")
+
+    def test_invalid_url_fails(self) -> None:
+        """Checks that an invalid url fails."""
