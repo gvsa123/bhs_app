@@ -345,9 +345,27 @@ class ModelRelationshipTest(TestCase):
         ro2 =RepairOrder.objects.create(customer=c2)
         ro3 =RepairOrder.objects.create(customer=c3)
 
-        co1 = Comments.objects.create(comment="Hello world.", ro=ro1)
-        co2 = Comments.objects.create(comment="Hello world.", ro=ro2)
-        co3 = Comments.objects.create(comment="Hello world.", ro=ro3)
+        co1 = Comments.objects.create(
+            comment="Hello world.",
+            ro=ro1,
+            job_description = "sample text",
+            error_codes = "sample text",
+            amount_total = 500.00,
+        )
+        co2 = Comments.objects.create(
+            comment="Hello world.",
+            ro=ro2,
+            job_description = "sample text",
+            error_codes = "sample text",
+            amount_total = 500.00
+        )
+        co3 = Comments.objects.create(
+            comment="Hello world.",
+            ro=ro3,
+            job_description = "sample text",
+            error_codes = "sample text",
+            amount_total = 500.00
+        )
         co1.save()
         co2.save()
         co3.save()
