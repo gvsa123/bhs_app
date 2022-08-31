@@ -18,7 +18,11 @@
     </head>
     <body>
         <a href="{% url 'index' %}"><h1>Welcome to the Bowness Mechanics Program Database</h1></a>
-        <p>---------------------NAVBAR------------------------</p>
+        <p>
+            <a href="{% url 'create-new-customer' %}">New Customer</a>
+            <a href="{% url 'view-customers' %}">Existing Customers</a>
+            <a href="{% url 'search' %}">Search</a>
+        </p>
         {% block content %}
         {% endblock %}
         <script src="" async defer></script>

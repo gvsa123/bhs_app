@@ -3,9 +3,7 @@
 {% block content %}
 {% if request.user.is_authenticated %}
     <p>Hello {{ request.user.username }}.</p>
-    <a href="{% url 'create-new-customer' %}">Create New Customer </a>
-    <a href="{% url 'search' %}">Search</a>
-    <a href="{% url 'view-customers' %}">View Existing Customers </a>
+    <p>Please choose from the options above.</p>
     <p><a href="{% url 'logout' %}">Log Out</a></p>
 {% else %}
     <p>User not authenticated. Please <a href="{% url 'login' %}">login.</a></p>
