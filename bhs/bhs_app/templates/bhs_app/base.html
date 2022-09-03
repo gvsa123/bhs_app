@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -10,21 +11,32 @@
         <title>BHS Database Application</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <style>
             a:link{text-decoration: none;}
             a:visited{text-decoration: none;}
         </style>
     </head>
     <body>
-        <a href="{% url 'index' %}"><h1>Welcome to the Bowness Mechanics Program Database</h1></a>
-        <p>
-            <a href="{% url 'create-new-customer' %}">New Customer</a>
-            <a href="{% url 'view-customers' %}">Existing Customers</a>
-            <a href="{% url 'search' %}">Search</a>
-        </p>
-        {% block content %}
-        {% endblock %}
-        <script src="" async defer></script>
+        <div class="container">
+            <h1>
+                <a href="{% url 'index' %}">Welcome to the Bowness Mechanics Program Database</a>
+            </h1>
+            
+            <nav class="navbar">
+                <a href="{% url 'create-new-customer' %}">New Customer</a>
+                <a href="{% url 'view-customers' %}">View Existing Customers</a>
+                <a href="{% url 'search' %}">Search</a>
+                <a href="{% url 'logout' %}">Log Out</a>
+            </nav>
+
+            {% block content %}
+            {% endblock %}
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+            <script src="" async defer></script>
+        </div>
+
     </body>
     </html>

@@ -9,6 +9,6 @@
 <form method="POST">
     {% csrf_token %}
     {{ form_repair_order }}
-    <p><input type="submit" value="Submit" onclick="return confirm('Are you sure? Repair orders cannot be deleted without admnistrative privileges.')"></p>
+    <p><input type="submit" value="Submit" onclick="return confirm('Repair orders cannot be deleted without admnistrative privileges. Are you sure?')"></p>
 </form>
 {% endblock %}

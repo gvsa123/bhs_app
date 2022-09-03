@@ -1,0 +1,41 @@
+body {
+    background-color: #c5d5cb;
+    margin: 20px;
+}
+
+a, p , h1, h2, th , td , table {
+    border-radius: 5px;
+    background-color: #e9edc9;
+    color: darkolivegreen;
+    margin: 5px;
+    padding: 10px;
+    background-color: none;
+}
+
+nav {
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #9fa8a3;
+}
+
+textarea {
+    vertical-align: top;
+    align-items: center;
+    height: 150px;
+}
+
+form, form.textarea {
+    border-radius: 5px;
+    background-color: #e9edc9;
+    display: grid;
+    max-width: 50%;
+    /* background-color: aquamarine; */
+}
+
+div.container {
+    display: grid;
+    grid-template-rows: 2fr;
+    text-align: center;
+
+}

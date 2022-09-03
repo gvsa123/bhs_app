@@ -4,8 +4,7 @@
 {% if request.user.is_authenticated %}
     <p>Hello {{ request.user.username }}.</p>
     <p>Please choose from the options above.</p>
-    <p><a href="{% url 'logout' %}">Log Out</a></p>
 {% else %}
-    <p>User not authenticated. Please <a href="{% url 'login' %}">login.</a></p>
+    <p>User not authenticated.<a href="{% url 'login' %}">Login.</a></p>
 {% endif %}
 {% endblock %}
