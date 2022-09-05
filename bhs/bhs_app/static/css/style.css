@@ -12,30 +12,28 @@ a, p , h1, h2, th , td , table {
     background-color: none;
 }
 
-nav {
+.navbar {
     margin: 5px;
     padding: 10px;
     border-radius: 5px;
     background-color: #9fa8a3;
 }
 
-textarea {
-    vertical-align: top;
-    align-items: center;
-    height: 150px;
-}
-
-form, form.textarea {
+form {
     border-radius: 5px;
     background-color: #e9edc9;
-    display: grid;
-    max-width: 50%;
-    /* background-color: aquamarine; */
-}
-
-div.container {
-    display: grid;
-    grid-template-rows: 2fr;
     text-align: center;
 
+}
+
+label {
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.container {
+    position: static;
+    display: grid;
+    grid-template-columns: 2fr;
 }
