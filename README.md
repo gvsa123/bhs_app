@@ -11,3 +11,6 @@ This will allow for better data processing, basic stats and identifying trends.
 ![customer profile](./screenshots/customer_profile.png)
 
 ![example repair order](./screenshots/repair_order_preview.png)
+
+## Running
+To run, activate your virtual environment from the project root `source venv/bin/activate`. From `./bhs/bhs_app/` run `python manage.py runserver` and open the link to `http://127.0.0.1:8000`. Enjoy!
