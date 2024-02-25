@@ -1,0 +1,13 @@
+body {
+    background-color:beige;
+}
+table {
+    background-color: azure;
+}
+th, td {
+    vertical-align: top;
+    text-align: justify;
+    padding-left: 5px;
+    padding: 20px;
+    
+}
